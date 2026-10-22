@@ -42,25 +42,25 @@
     {
       "src": "./screenshot1.jpg",
       "sizes": "1280x720",
-      "type": "image/jpeg",
+      "type": "image/jpg",
       "platform": "wide"
     },
     {
       "src": "./screenshot2.jpg",
       "sizes": "1280x720",
-      "type": "image/jpeg",
+      "type": "image/jpg",
       "platform": "wide"
     },
     {
       "src": "./screenshot3.jpg",
       "sizes": "1280x720",
-      "type": "image/jpeg",
+      "type": "image/jpg",
       "platform": "wide"
     },
     {
       "src": "./screenshot4.jpg",
       "sizes": "1280x720",
-      "type": "image/jpeg",
+      "type": "image/jpg",
       "platform": "wide"
     }
   ]
