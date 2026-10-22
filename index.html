@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>🧮 عبقري الرياضيات</title>
 <link rel="manifest" href="manifest.json">
+<script src="tts-bridge.js"></script>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
@@ -341,8 +342,24 @@ if ('speechSynthesis' in window) {
   window.speechSynthesis.onvoiceschanged = loadVoices;
 }
 const speak = (text) => {
-  if (!state.sound || !('speechSynthesis' in window)) return;
-  if (!text) return;
+  if (!state.sound || !text) return;
+  // Native Android speech is used in the APK; the website keeps its original browser speech.
+  if (window.MathGeniusTTS && window.MathGeniusTTS.isNative()) {
+    window.MathGeniusTTS.speak(text, { lang: 'ar-SA', rate: 0.85, pitch: 1.5, volume: 1.0 })
+      .then(ok => {
+        if (!ok && 'speechSynthesis' in window) {
+          if (!speakVoice) loadVoices();
+          window.speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(text);
+          u.lang = 'ar-SA'; u.rate = 0.85; u.pitch = 1.5; u.volume = 1;
+          if (speakVoice) u.voice = speakVoice;
+          window.speechSynthesis.speak(u);
+        }
+      })
+      .catch(error => console.warn('Speech failed:', error));
+    return;
+  }
+  if (!('speechSynthesis' in window)) return;
   if (!speakVoice) loadVoices();
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
@@ -508,6 +525,7 @@ function toggleSound() {
   if (btn) btn.textContent = state.sound ? '🔊' : '🔇';
   if (state.sound) { initAudio(); playClick(); }
   else if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  if (!state.sound && window.MathGeniusTTS) window.MathGeniusTTS.stop();
 }
 
 function renderHome() {
