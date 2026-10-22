@@ -1,4 +1,4 @@
-const CACHE = 'math-genius-v5';
+const CACHE = 'math-genius-v6';
 const ASSETS = [
   './',
   './index.html',
