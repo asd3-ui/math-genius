@@ -44,6 +44,9 @@ jobs:
       - name: Generate Android project
         run: npx cap add android
 
+      - name: Generate Android launcher icons from manifest icon
+        run: npm run build:android-icons
+
       - name: Sync web app into Android
         run: npx cap sync android
 
