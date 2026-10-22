@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#667eea">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>🧮 عبقري الرياضيات</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:'Segoe UI','Tahoma','Arial',sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none;direction:rtl}
+body{background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#f093fb 100%);background-size:200% 200%;animation:bgShift 15s ease infinite}
+@keyframes bgShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+#app{height:100vh;height:100dvh;display:flex;flex-direction:column;padding:14px;padding-top:max(14px,env(safe-area-inset-top));padding-bottom:max(14px,env(safe-area-inset-bottom));overflow:hidden}
+.header{display:flex;justify-content:space-between;align-items:center;padding:4px;flex-shrink:0;gap:8px}
+.stars-badge{background:rgba(255,255,255,.95);padding:8px 16px;border-radius:50px;font-weight:bold;font-size:17px;color:#764ba2;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.star-icon{font-size:19px;animation:starPulse 2s ease-in-out infinite}
+@keyframes starPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.icon-btn{width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.95);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .15s}
+.icon-btn:active{transform:scale(.9)}
+.icon-btn.small{width:38px;height:38px;font-size:18px}
+.screen{flex:1;display:flex;flex-direction:column;overflow:hidden;animation:screenIn .35s ease-out}
+@keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.home-title{text-align:center;color:#fff;font-size:26px;font-weight:900;margin:8px 0 4px;text-shadow:2px 2px 8px rgba(0,0,0,.3);flex-shrink:0}
+.home-subtitle{text-align:center;color:rgba(255,255,255,.9);font-size:14px;margin-bottom:12px;flex-shrink:0}
+.diff-row{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-shrink:0}
+.diff-btn{background:rgba(255,255,255,.3);border:2px solid rgba(255,255,255,.5);color:#fff;padding:8px 16px;border-radius:50px;font-weight:bold;font-size:14px;cursor:pointer;transition:all .2s;backdrop-filter:blur(10px)}
+.diff-btn.active{background:#fff;color:#764ba2;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.diff-btn:active{transform:scale(.95)}
+.categories-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;flex:1;overflow-y:auto;padding:4px;align-content:start}
+.category-card{border-radius:22px;padding:16px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;font-weight:bold;font-size:15px;border:none;box-shadow:0 8px 22px rgba(0,0,0,.22);transition:transform .2s,box-shadow .2s;min-height:125px;position:relative;overflow:hidden;text-align:center}
+.category-card:active{transform:scale(.95);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.category-card .emoji{font-size:42px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2))}
+.category-card .count{font-size:11px;opacity:.85;font-weight:normal}
+.cat-numbers{background:linear-gradient(135deg,#4facfe,#00f2fe)}
+.cat-addsub{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a5d3a}
+.cat-muldiv{background:linear-gradient(135deg,#fa709a,#fee140);color:#6a2a10}
+.cat-shapes{background:linear-gradient(135deg,#a18cd1,#fbc2eb);color:#4a2568}
+.cat-time{background:linear-gradient(135deg,#ff9a56,#ff6a88)}
+.cat-measure{background:linear-gradient(135deg,#43cea2,#185a9d)}
+.cat-fun{background:linear-gradient(135deg,#c471ed,#f64f59)}
+.cat-challenge{background:linear-gradient(135deg,#30cfd0,#330867)}
+.cat-header{display:flex;align-items:center;gap:12px;padding:8px 4px;margin-bottom:12px;flex-shrink:0}
+.cat-title{color:#fff;font-size:20px;font-weight:bold;text-shadow:1px 1px 4px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px}
+.games-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;overflow-y:auto;padding:4px;flex:1}
+.game-card{border-radius:20px;padding:14px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;border:none;box-shadow:0 6px 18px rgba(0,0,0,.2);transition:transform .2s;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,.3);min-height:115px;text-align:center;justify-content:center}
+.game-card:active{transform:scale(.94)}
+.game-card .emoji{font-size:38px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
+.game-card .name{font-weight:bold;font-size:15px}
+.game-card .desc{font-size:11px;opacity:.85}
+.game-topbar{display:flex;align-items:center;padding:8px 4px;gap:8px;flex-shrink:0;margin-bottom:8px}
+.progress-bar{flex:1;height:14px;background:rgba(255,255,255,.3);border-radius:10px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ffd700,#ffed4e);border-radius:10px;transition:width .4s ease;box-shadow:0 0 10px rgba(255,215,0,.6);width:0}
+.score-text{color:#fff;font-weight:bold;font-size:15px;background:rgba(255,255,255,.25);padding:6px 12px;border-radius:20px;flex-shrink:0}
+.question-area{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px;overflow-y:auto;min-height:0;gap:12px}
+.question-text{color:#fff;font-size:18px;font-weight:bold;text-align:center;text-shadow:1px 1px 6px rgba(0,0,0,.3)}
+.prompt-box{display:flex;justify-content:center;align-items:center;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);flex-direction:column;gap:12px}
+@keyframes popIn{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
+.equation-display{font-size:48px;font-weight:900;color:#fff;text-shadow:3px 3px 0 rgba(118,75,162,.7),6px 6px 15px rgba(0,0,0,.3);direction:ltr;text-align:center;padding:18px;background:rgba(255,255,255,.15);border-radius:24px;backdrop-filter:blur(10px);letter-spacing:4px;font-family:'Arial Black',sans-serif}
+.objects-box{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:320px;padding:14px;background:rgba(255,255,255,.15);border-radius:20px;backdrop-filter:blur(10px)}
+.object-item{font-size:30px;animation:popIn .3s ease-out}
+.shape-display{width:140px;height:140px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.35));animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.clock-wrap{width:220px;height:220px;max-width:70vw;max-height:70vw;padding:8px;background:#fff;border-radius:50%;box-shadow:0 10px 30px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
+.clock-wrap svg{display:block;width:100%;height:100%}
+.clock-option .clock-wrap{width:100%;height:auto;max-width:none;max-height:none;padding:0;background:transparent;box-shadow:none;border-radius:0;display:block}
+.clock-option .clock-wrap svg{width:100%;height:auto}
+.options-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;max-width:420px;padding-top:12px}
+.option-btn{background:#fff;border:none;border-radius:20px;padding:16px 10px;cursor:pointer;font-size:32px;font-weight:bold;color:#333;box-shadow:0 6px 16px rgba(0,0,0,.2);transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:80px;position:relative;font-family:'Arial Black',sans-serif;direction:ltr}
+.option-btn:active:not(:disabled){transform:scale(.94);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.option-btn .opt-sub{font-size:12px;color:#888;font-weight:bold;direction:rtl;font-family:'Segoe UI',Tahoma,sans-serif}
+.option-btn.correct{background:#4caf50!important;color:#fff!important;animation:correctPop .5s}
+.option-btn.correct .opt-sub{color:#fff}
+.option-btn.wrong{background:#f44336!important;color:#fff!important;animation:shake .4s}
+.option-btn.wrong .opt-sub{color:#fff}
+.option-btn:disabled{opacity:.6}
+.option-btn.correct:disabled,.option-btn.wrong:disabled{opacity:1}
+.option-btn.clock-option{padding:6px;min-height:130px;background:#f8f9ff}
+@keyframes correctPop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.explore-display{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
+.number-words{color:#fff;text-align:center;text-shadow:1px 1px 4px rgba(0,0,0,.3)}
+.number-words .ar{font-size:28px;font-weight:900}
+.number-words .en{font-size:15px;opacity:.9;direction:ltr;font-family:Arial}
+.explore-nav{display:flex;gap:16px;margin-top:12px}
+.nav-btn{width:56px;height:56px;border-radius:50%;border:none;background:#fff;font-size:22px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.2);color:#764ba2;font-weight:bold;transition:transform .15s}
+.nav-btn:active{transform:scale(.9)}
+.nav-btn:disabled{opacity:.4;cursor:not-allowed}
+.speak-btn{width:56px;height:56px;border-radius:50%;border:none;background:#ffd700;font-size:24px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.2);transition:transform .15s}
+.speak-btn:active{transform:scale(.9)}
+.memory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:380px;margin:0 auto}
+.memory-card{aspect-ratio:1;border-radius:16px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(135deg,#667eea,#764ba2);box-shadow:0 4px 12px rgba(0,0,0,.25);transition:background .35s,transform .2s;position:relative;font-weight:bold;padding:4px;text-align:center;color:transparent;font-family:'Arial Black',sans-serif;direction:ltr}
+.memory-card::before{content:'?';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;font-weight:bold;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;transition:opacity .35s,transform .35s}
+.memory-card.flipped{background:#fff;color:#2c3e50}
+.memory-card.flipped::before{opacity:0;transform:scale(.5)}
+.memory-card.matched{background:#c8e6c9;color:#2e7d32;animation:matchedPop .5s}
+.memory-card.matched::before{opacity:0}
+@keyframes matchedPop{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.order-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:420px;padding:12px}
+.order-instruction{color:#fff;font-size:16px;font-weight:bold;text-align:center;text-shadow:1px 1px 4px rgba(0,0,0,.3);background:rgba(255,255,255,.2);padding:10px 18px;border-radius:20px;backdrop-filter:blur(10px)}
+.order-slots{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:70px}
+.order-slot{width:62px;height:62px;border-radius:16px;border:3px dashed rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;transition:all .3s;background:rgba(255,255,255,.1)}
+.order-slot.current{border-color:#ffd700;background:rgba(255,215,0,.2);animation:slotPulse 1.2s ease-in-out infinite}
+@keyframes slotPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,.4)}50%{box-shadow:0 0 0 10px rgba(255,215,0,0)}}
+.order-slot.filled{background:#4caf50;border:3px solid #4caf50;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.order-options{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%}
+.order-num-btn{background:#fff;border:none;border-radius:16px;padding:16px 8px;font-size:26px;font-weight:900;color:#333;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.2);transition:all .2s;font-family:'Arial Black',sans-serif;direction:ltr}
+.order-num-btn:active:not(:disabled){transform:scale(.94)}
+.order-num-btn.used{background:#4caf50;color:#fff;pointer-events:none;opacity:.7}
+.order-num-btn.wrong-shake{animation:shake .4s}
+.maze-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:320px;background:rgba(255,255,255,.15);padding:12px;border-radius:20px;backdrop-filter:blur(10px)}
+.maze-cell{aspect-ratio:1;border-radius:12px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:22px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:'Arial Black',sans-serif;direction:ltr}
+.maze-cell:active:not(.correct):not(.wrong){transform:scale(.9)}
+.maze-cell.correct{background:#4caf50;border-color:#4caf50;color:#fff;animation:correctPop .4s}
+.maze-cell.wrong{background:#f44336;border-color:#f44336;animation:shake .4s}
+.maze-cell.start{background:#ffd700;border-color:#ffd700;color:#333}
+.maze-target{color:#fff;font-size:16px;font-weight:bold;text-align:center;background:rgba(255,255,255,.2);padding:10px 20px;border-radius:20px;backdrop-filter:blur(10px)}
+.maze-target .num{font-size:32px;color:#ffd700;font-weight:900;font-family:'Arial Black',sans-serif;direction:ltr;margin:0 6px}
+.maze-progress{display:flex;gap:6px;justify-content:center;margin-top:8px}
+.maze-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);transition:all .3s}
+.maze-dot.done{background:#4caf50;box-shadow:0 0 10px rgba(76,175,80,.7)}
+.compare-box{display:flex;gap:16px;justify-content:center;align-items:center;font-size:70px;padding:20px;background:rgba(255,255,255,.15);border-radius:24px;backdrop-filter:blur(10px);max-width:340px;width:100%}
+.compare-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.compare-item .em{font-size:64px;line-height:1}
+.compare-item .lbl{font-size:14px;color:#fff;font-weight:bold;text-shadow:1px 1px 4px rgba(0,0,0,.4)}
+.compare-symbol{font-size:36px;color:#fff;opacity:.8}
+.timer-display{font-size:36px;font-weight:900;color:#fff;background:rgba(255,255,255,.25);padding:8px 24px;border-radius:50px;box-shadow:0 4px 12px rgba(0,0,0,.15);text-shadow:2px 2px 6px rgba(0,0,0,.3);font-family:'Arial Black',sans-serif;direction:ltr}
+.timer-display.urgent{animation:urgentPulse .6s ease-in-out infinite;background:rgba(244,67,54,.7)}
+@keyframes urgentPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.number-search-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:340px}
+.ns-cell{aspect-ratio:1;border-radius:14px;border:none;background:#fff;font-size:22px;font-weight:900;color:#333;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:all .2s;font-family:'Arial Black',sans-serif}
+.ns-cell:active:not(.found):not(.miss){transform:scale(.9)}
+.ns-cell.found{background:#4caf50;color:#fff;animation:correctPop .4s;pointer-events:none}
+.ns-cell.miss{background:#f44336;color:#fff;animation:shake .4s}
+.ns-target{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:14px;background:rgba(255,255,255,.2);padding:10px 20px;border-radius:50px;backdrop-filter:blur(10px)}
+.ns-target .num{font-size:46px;font-weight:900;color:#ffd700;text-shadow:3px 3px 0 #764ba2;font-family:'Arial Black',sans-serif;direction:ltr}
+.win-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000;animation:fadeIn .3s;padding:20px;backdrop-filter:blur(4px)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.win-card{background:#fff;border-radius:30px;padding:28px 22px;text-align:center;max-width:340px;width:100%;animation:popIn .5s cubic-bezier(.34,1.56,.64,1);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.win-emoji{font-size:70px;margin-bottom:8px;animation:bounce 1.2s ease-in-out infinite}
+.win-title{font-size:24px;font-weight:900;color:#333;margin-bottom:6px}
+.win-subtitle{font-size:15px;color:#666;margin-bottom:14px}
+.win-stars{font-size:34px;letter-spacing:6px;margin-bottom:12px}
+.win-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:50px;padding:13px 28px;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 6px 18px rgba(118,75,162,.4);margin:4px 4px;transition:transform .15s}
+.win-btn:active{transform:scale(.95)}
+.win-btn.secondary{background:#f0f0f0;color:#333;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.confetti{position:fixed;width:10px;height:10px;border-radius:3px;pointer-events:none;z-index:9999;animation:confettiFall 1.5s ease-out forwards}
+@keyframes confettiFall{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--x),calc(var(--y) + 500px)) rotate(var(--r));opacity:0}}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:12px 24px;border-radius:50px;font-weight:bold;font-size:15px;z-index:9999;animation:toastIn .3s}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,-20px)}to{opacity:1;transform:translate(-50%,0)}}
+.score-pulse{animation:scorePulse .6s}
+@keyframes scorePulse{0%{transform:scale(1)}50%{transform:scale(1.3);color:#ffd700}100%{transform:scale(1)}}
+@media(max-height:700px){
+  .equation-display{font-size:36px;padding:14px}
+  .option-btn{min-height:64px;font-size:26px;padding:12px 8px}
+  .option-btn.clock-option{min-height:105px}
+  .category-card{min-height:100px}
+  .category-card .emoji{font-size:34px}
+  .game-card{min-height:95px}
+  .game-card .emoji{font-size:32px}
+  .objects-box{max-width:280px;padding:10px}
+  .object-item{font-size:24px}
+  .ns-cell{font-size:18px}
+  .clock-wrap{width:170px;height:170px}
+  .compare-box{font-size:56px;padding:14px}
+  .compare-item .em{font-size:52px}
+  .order-slot{width:54px;height:54px;font-size:22px}
+  .order-num-btn{font-size:22px;padding:12px 6px}
+  .maze-cell{font-size:18px}
+}
+@media(max-width:360px){
+  .options-grid{gap:8px}
+  .option-btn{font-size:26px}
+  .order-num-btn{font-size:20px;padding:12px 4px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+'use strict';
+
+/* ==================== البيانات ==================== */
+const CATEGORIES = {
+  numbers: {
+    name: 'الأرقام والعد', emoji: '🔢', css: 'cat-numbers',
+    games: [
+      { id: 'learnNumbers', name: 'تعلّم الأرقام', emoji: '🎯', desc: 'استكشف الأرقام' },
+      { id: 'counting', name: 'العد', emoji: '🔍', desc: 'عدّ الأشياء' },
+      { id: 'compare', name: 'المقارنة', emoji: '⚖️', desc: 'أكبر أم أصغر' },
+      { id: 'ordering', name: 'الترتيب', emoji: '📊', desc: 'رتّب الأعداد' },
+    ]
+  },
+  addsub: {
+    name: 'الجمع والطرح', emoji: '➕', css: 'cat-addsub',
+    games: [
+      { id: 'addition', name: 'الجمع', emoji: '➕', desc: 'اجمع الأعداد' },
+      { id: 'subtraction', name: 'الطرح', emoji: '➖', desc: 'اطرح الأعداد' },
+    ]
+  },
+  muldiv: {
+    name: 'الضرب والقسمة', emoji: '✖️', css: 'cat-muldiv',
+    games: [
+      { id: 'multiplication', name: 'الضرب', emoji: '✖️', desc: 'اضرب الأعداد' },
+      { id: 'division', name: 'القسمة', emoji: '➗', desc: 'اقسم الأعداد' },
+    ]
+  },
+  shapes: {
+    name: 'الأشكال والأنماط', emoji: '🔺', css: 'cat-shapes',
+    games: [
+      { id: 'shapes', name: 'الأشكال', emoji: '🔷', desc: 'تعرّف على الأشكال' },
+      { id: 'patterns', name: 'الأنماط', emoji: '🎨', desc: 'أكمل النمط' },
+    ]
+  },
+  time: {
+    name: 'الوقت والساعة', emoji: '⏰', css: 'cat-time',
+    games: [
+      { id: 'learnClock', name: 'تعلّم الساعة', emoji: '🕐', desc: 'استكشف الساعة' },
+      { id: 'readClock', name: 'اقرأ الساعة', emoji: '📖', desc: 'ما الوقت؟' },
+      { id: 'setClock', name: 'اضبط الساعة', emoji: '⚙️', desc: 'اختر الساعة' },
+    ]
+  },
+  measure: {
+    name: 'القياس', emoji: '📏', css: 'cat-measure',
+    games: [
+      { id: 'length', name: 'الطول', emoji: '📏', desc: 'أطول أم أقصر' },
+      { id: 'weight', name: 'الوزن', emoji: '⚖️', desc: 'أثقل أم أخف' },
+      { id: 'volume', name: 'الحجم', emoji: '🥤', desc: 'أكثر أم أقل' },
+      { id: 'maze', name: 'المتاهة الرقمية', emoji: '🌀', desc: 'أوجد المسار الصحيح' },
+    ]
+  },
+  fun: {
+    name: 'ألعاب ممتعة', emoji: '🎯', css: 'cat-fun',
+    games: [
+      { id: 'missingNumber', name: 'الرقم المفقود', emoji: '🔍', desc: 'أكمل السلسلة' },
+      { id: 'balanceEq', name: 'الميزان', emoji: '🎈', desc: 'حل المعادلة' },
+      { id: 'fractions', name: 'الكسور', emoji: '🍕', desc: 'تعلّم الكسور' },
+      { id: 'numberSearch', name: 'ابحث عن الرقم', emoji: '🔢', desc: 'لعبة البحث' },
+    ]
+  },
+  challenge: {
+    name: 'الذاكرة والتحدي', emoji: '🧠', css: 'cat-challenge',
+    games: [
+      { id: 'mathMemory', name: 'الذاكرة', emoji: '🧠', desc: 'طابق العمليات' },
+      { id: 'quickChallenge', name: 'التحدي السريع', emoji: '⚡', desc: 'تحدّي 60 ثانية' },
+    ]
+  }
+};
+
+const AR_ONES = ['','واحد','اثنان','ثلاثة','أربعة','خمسة','ستة','سبعة','ثمانية','تسعة'];
+const AR_TEENS = ['عشرة','أحد عشر','اثنا عشر','ثلاثة عشر','أربعة عشر','خمسة عشر','ستة عشر','سبعة عشر','ثمانية عشر','تسعة عشر'];
+const AR_TENS = ['','','عشرون','ثلاثون','أربعون','خمسون','ستون','سبعون','ثمانون','تسعون'];
+const EN_ONES = ['','one','two','three','four','five','six','seven','eight','nine'];
+const EN_TEENS = ['ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+const EN_TENS = ['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+
+const SHAPES = [
+  {name:'دائرة', svg:'<circle cx="50" cy="50" r="46" fill="#ff6b6b" stroke="#fff" stroke-width="4"/>'},
+  {name:'مربع', svg:'<rect x="6" y="6" width="88" height="88" rx="4" fill="#4facfe" stroke="#fff" stroke-width="4"/>'},
+  {name:'مثلث', svg:'<polygon points="50,6 94,94 6,94" fill="#43e97b" stroke="#fff" stroke-width="4"/>'},
+  {name:'مستطيل', svg:'<rect x="6" y="24" width="88" height="52" rx="4" fill="#fa709a" stroke="#fff" stroke-width="4"/>'},
+  {name:'نجمة', svg:'<polygon points="50,4 61,36 95,36 67,56 78,90 50,70 22,90 33,56 5,36 39,36" fill="#ffd93d" stroke="#fff" stroke-width="3"/>'},
+  {name:'معين', svg:'<polygon points="50,6 94,50 50,94 6,50" fill="#a18cd1" stroke="#fff" stroke-width="4"/>'},
+  {name:'خماسي', svg:'<polygon points="50,6 94,38 78,90 22,90 6,38" fill="#feca57" stroke="#fff" stroke-width="4"/>'},
+  {name:'سداسي', svg:'<polygon points="25,10 75,10 94,50 75,90 25,90 6,50" fill="#4ecdc4" stroke="#fff" stroke-width="4"/>'},
+];
+
+const OBJECTS = ['🍎','🍌','⭐','🎈','🌸','🐟','🍪','🍓','🍊','🍇','🦋','🌻','🎁','🍭'];
+
+const state = {
+  screen: 'home', categoryId: null, gameId: null,
+  difficulty: localStorage.getItem('math_diff') || 'easy',
+  stars: parseInt(localStorage.getItem('math_stars') || '0'),
+  gamesPlayed: parseInt(localStorage.getItem('math_played') || '0'),
+  correctTotal: parseInt(localStorage.getItem('math_correct') || '0'),
+  sound: localStorage.getItem('math_sound') !== 'off',
+  questionNum: 0, totalQ: 10, score: 0, firstAttempt: true, currentQ: null,
+  learnNumber: 1, clockState: null, memoryState: null,
+  orderState: null, quickState: null, numberSearch: null, mazeState: null,
+};
+
+const app = document.getElementById('app');
+const shuffle = (arr) => arr.map(v => [Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1]);
+const pick = (arr) => arr[Math.floor(Math.random()*arr.length)];
+const randInt = (min, max) => Math.floor(Math.random()*(max-min+1))+min;
+const arWord = (n) => {
+  if (n === 0) return 'صفر';
+  if (n < 10) return AR_ONES[n];
+  if (n < 20) return AR_TEENS[n-10];
+  if (n < 100) { const t=Math.floor(n/10), o=n%10; return o===0?AR_TENS[t]:`${AR_ONES[o]} و${AR_TENS[t]}`; }
+  if (n === 100) return 'مئة';
+  return String(n);
+};
+const enWord = (n) => {
+  if (n === 0) return 'zero';
+  if (n < 10) return EN_ONES[n];
+  if (n < 20) return EN_TEENS[n-10];
+  if (n < 100) { const t=Math.floor(n/10), o=n%10; return o===0?EN_TENS[t]:`${EN_TENS[t]}-${EN_ONES[o]}`; }
+  if (n === 100) return 'one hundred';
+  return String(n);
+};
+const hourAr = (h) => h===10?'عشرة':h===11?'أحد عشر':h===12?'اثنا عشر':AR_ONES[h]||String(h);
+const getDiff = () => state.difficulty;
+
+/* ==================== الأصوات ==================== */
+let audioCtx = null;
+const initAudio = () => {
+  if (!audioCtx) { try { audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } catch(e){} }
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+};
+const tone = (freq, dur, type='sine', vol=0.15) => {
+  if (!state.sound) return;
+  initAudio(); if (!audioCtx) return;
+  const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(vol, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+  o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + dur);
+};
+const playCorrect = () => { tone(523.25,0.1); setTimeout(()=>tone(659.25,0.1),80); setTimeout(()=>tone(783.99,0.2),160); };
+const playWrong = () => { tone(220,0.15,'triangle',0.14); setTimeout(()=>tone(174.61,0.22,'triangle',0.14),120); };
+const playClick = () => tone(800,0.05,'sine',0.08);
+const playWin = () => { [523.25,659.25,783.99,1046.5].forEach((n,i)=>setTimeout(()=>tone(n,0.3,'sine',0.2),i*120)); };
+const vibrate = (ms) => { if ('vibrate' in navigator) navigator.vibrate(ms); };
+
+/* ==================== نظام النطق (صوت طفولي) ==================== */
+let speakVoices = [];
+let speakVoice = null;
+const loadVoices = () => {
+  if (!('speechSynthesis' in window)) return;
+  speakVoices = window.speechSynthesis.getVoices();
+  speakVoice = speakVoices.find(v => v.lang === 'ar-SA') ||
+               speakVoices.find(v => v.lang === 'ar-EG') ||
+               speakVoices.find(v => v.lang.startsWith('ar')) || null;
+};
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+const speak = (text) => {
+  if (!state.sound || !('speechSynthesis' in window)) return;
+  if (!text) return;
+  if (!speakVoice) loadVoices();
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ar-SA';
+  u.rate = 0.85;
+  u.pitch = 1.5;
+  u.volume = 1;
+  if (speakVoice) u.voice = speakVoice;
+  window.speechSynthesis.speak(u);
+};
+const speakDelayed = (text, delay = 400) => {
+  setTimeout(() => speak(text), delay);
+};
+
+const speakQuestion = (gameId, q) => {
+  if (!q) return;
+  switch (gameId) {
+    case 'counting': speakDelayed('كم عدد الأشياء؟', 400); return;
+    case 'compare': speakDelayed('أيهما أكبر؟ اختر الإشارة الصحيحة', 400); return;
+    case 'addition':
+    case 'subtraction':
+    case 'multiplication':
+    case 'division': {
+      const op = q.promptHtml.match(/(\d+)\s*([+−×÷])\s*(\d+)/);
+      if (op) {
+        const a = parseInt(op[1]);
+        const symbol = op[2];
+        const b = parseInt(op[3]);
+        const opWord = symbol === '+' ? 'زائد' : symbol === '−' ? 'ناقص' : symbol === '×' ? 'ضرب' : 'على';
+        speakDelayed(`${arWord(a)} ${opWord} ${arWord(b)}. كم يساوي؟`, 400);
+      } else speakDelayed('كم يساوي؟', 400);
+      return;
+    }
+    case 'shapes': speakDelayed('ما هذا الشكل؟', 400); return;
+    case 'patterns': speakDelayed('ما العنصر التالي في النمط؟', 400); return;
+    case 'readClock': speakDelayed('كم الساعة الآن؟', 400); return;
+    case 'setClock': speakDelayed('اختر الساعة الصحيحة', 400); return;
+    case 'length': speakDelayed('أيهما أطول؟', 400); return;
+    case 'weight': speakDelayed('أيهما أثقل؟', 400); return;
+    case 'volume': speakDelayed('أيهما يستوعب أكثر؟', 400); return;
+    case 'missingNumber': speakDelayed('ما الرقم المفقود؟', 400); return;
+    case 'balanceEq': speakDelayed('كم يساوي كل عنصر؟', 400); return;
+    case 'fractions': speakDelayed('ما هذا الكسر؟', 400); return;
+    default: break;
+  }
+};
+
+/* ==================== الكونفيتي والتوست ==================== */
+const confetti = (x, y) => {
+  const colors = ['#ff6b6b','#feca57','#48dbfb','#1dd1a1','#f368e0','#ffd700','#a18cd1'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti';
+    p.style.left = x + 'px'; p.style.top = y + 'px';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.setProperty('--x', (Math.random()-0.5)*400+'px');
+    p.style.setProperty('--y', (Math.random()-0.5)*400+'px');
+    p.style.setProperty('--r', Math.random()*720+'deg');
+    p.style.width = (7+Math.random()*7)+'px'; p.style.height = (7+Math.random()*7)+'px';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1500);
+  }
+};
+const toast = (msg) => {
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 1800);
+};
+
+const saveStars = () => localStorage.setItem('math_stars', state.stars);
+const saveStats = () => {
+  localStorage.setItem('math_played', state.gamesPlayed);
+  localStorage.setItem('math_correct', state.correctTotal);
+};
+const addStar = () => {
+  state.stars++; saveStars();
+  const el = document.getElementById('stars-count');
+  if (el) {
+    el.textContent = state.stars;
+    const parent = el.parentElement;
+    parent.classList.remove('score-pulse');
+    void parent.offsetWidth;
+    parent.classList.add('score-pulse');
+  }
+};
+
+/* ==================== رسم الساعة ==================== */
+function drawClock(h, m) {
+  const hAngle = ((h % 12) * 30 + m * 0.5 - 90) * Math.PI / 180;
+  const mAngle = (m * 6 - 90) * Math.PI / 180;
+  const nums = [12,1,2,3,4,5,6,7,8,9,10,11].map((n,i) => {
+    const a = (i * 30 - 90) * Math.PI / 180;
+    const x = 100 + Math.cos(a) * 76, y = 100 + Math.sin(a) * 76;
+    return `<text x="${x}" y="${y+7}" text-anchor="middle" font-size="18" font-weight="900" fill="#2c3e50" font-family="Arial Black">${n}</text>`;
+  }).join('');
+  const ticks = Array.from({length:60}, (_,i) => {
+    const a = (i * 6 - 90) * Math.PI / 180;
+    const isH = i % 5 === 0;
+    const r1 = isH ? 84 : 89, r2 = 93;
+    return `<line x1="${100+Math.cos(a)*r1}" y1="${100+Math.sin(a)*r1}" x2="${100+Math.cos(a)*r2}" y2="${100+Math.sin(a)*r2}" stroke="${isH?'#2c3e50':'#999'}" stroke-width="${isH?3:1}" stroke-linecap="round"/>`;
+  }).join('');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:100%">
+    <circle cx="100" cy="100" r="97" fill="#fff" stroke="#2c3e50" stroke-width="4"/>
+    <circle cx="100" cy="100" r="90" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    ${ticks}${nums}
+    <line x1="100" y1="100" x2="${100+Math.cos(hAngle)*52}" y2="${100+Math.sin(hAngle)*52}" stroke="#e53935" stroke-width="8" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="${100+Math.cos(mAngle)*74}" y2="${100+Math.sin(mAngle)*74}" stroke="#1e88e5" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="8" fill="#2c3e50"/>
+    <circle cx="100" cy="100" r="4" fill="#ffd700"/>
+  </svg>`;
+}
+
+function drawFraction(num, den) {
+  const step = 360 / den;
+  const slices = [];
+  for (let i = 0; i < den; i++) {
+    const sa = (i * step - 90) * Math.PI / 180;
+    const ea = ((i+1) * step - 90) * Math.PI / 180;
+    const x1 = 50 + 44 * Math.cos(sa), y1 = 50 + 44 * Math.sin(sa);
+    const x2 = 50 + 44 * Math.cos(ea), y2 = 50 + 44 * Math.sin(ea);
+    const large = step > 180 ? 1 : 0;
+    const fill = i < num ? '#ff6b6b' : '#f0f0f0';
+    slices.push(`<path d="M 50 50 L ${x1} ${y1} A 44 44 0 ${large} 1 ${x2} ${y2} Z" fill="${fill}" stroke="#fff" stroke-width="2"/>`);
+  }
+  return `<svg viewBox="0 0 100 100" style="width:160px;height:160px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.3))">
+    ${slices}
+    <circle cx="50" cy="50" r="44" fill="none" stroke="#2c3e50" stroke-width="3"/>
+    <text x="50" y="58" text-anchor="middle" font-size="18" font-weight="900" fill="#2c3e50" font-family="Arial Black">${num}/${den}</text>
+  </svg>`;
+}
+
+function readTimeAr(h, m) {
+  if (m === 0) return `الساعة ${hourAr(h)} تماماً`;
+  if (m === 15) return `الساعة ${hourAr(h)} والربع`;
+  if (m === 30) return `الساعة ${hourAr(h)} والنصف`;
+  if (m === 45) return `الساعة ${hourAr(h===12?1:h+1)} إلا ربعاً`;
+  return `الساعة ${hourAr(h)} و ${m} دقيقة`;
+}
+
+/* ==================== الشاشات الأساسية ==================== */
+function renderHeader(showBack = false) {
+  return `<div class="header">
+    <div style="display:flex;gap:6px;align-items:center">
+      ${showBack ? `<button class="icon-btn small" id="back-btn">↩</button>` : ''}
+      <div class="stars-badge"><span class="star-icon">⭐</span><span id="stars-count">${state.stars}</span></div>
+    </div>
+    <button class="icon-btn" id="sound-btn">${state.sound ? '🔊' : '🔇'}</button>
+  </div>`;
+}
+function bindHeader(showBack, backAction) {
+  const sb = document.getElementById('sound-btn');
+  if (sb) sb.addEventListener('click', toggleSound);
+  if (showBack) {
+    const bb = document.getElementById('back-btn');
+    if (bb) bb.addEventListener('click', () => { playClick(); backAction ? backAction() : renderHome(); });
+  }
+}
+function toggleSound() {
+  state.sound = !state.sound;
+  localStorage.setItem('math_sound', state.sound ? 'on' : 'off');
+  const btn = document.getElementById('sound-btn');
+  if (btn) btn.textContent = state.sound ? '🔊' : '🔇';
+  if (state.sound) { initAudio(); playClick(); }
+  else if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+function renderHome() {
+  state.screen = 'home'; state.gameId = null; state.categoryId = null;
+  app.innerHTML = `
+    ${renderHeader()}
+    <div class="screen">
+      <h1 class="home-title">🧮 عبقري الرياضيات</h1>
+      <p class="home-subtitle">تعلّم الرياضيات من خلال اللعب!</p>
+      <div class="diff-row">
+        <button class="diff-btn ${state.difficulty==='easy'?'active':''}" data-diff="easy">🌱 سهل</button>
+        <button class="diff-btn ${state.difficulty==='medium'?'active':''}" data-diff="medium">🔥 متوسط</button>
+        <button class="diff-btn ${state.difficulty==='hard'?'active':''}" data-diff="hard">💎 صعب</button>
+      </div>
+      <div class="categories-grid">
+        ${Object.entries(CATEGORIES).map(([id, cat]) => `
+          <button class="category-card ${cat.css}" data-cat="${id}">
+            <span class="emoji">${cat.emoji}</span>
+            <span>${cat.name}</span>
+            <span class="count">${cat.games.length} ألعاب</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>`;
+  bindHeader(false);
+  document.querySelectorAll('[data-diff]').forEach(b => b.addEventListener('click', () => {
+    state.difficulty = b.dataset.diff; localStorage.setItem('math_diff', state.difficulty);
+    playClick(); renderHome();
+  }));
+  document.querySelectorAll('[data-cat]').forEach(b => b.addEventListener('click', () => {
+    initAudio(); playClick(); renderCategory(b.dataset.cat);
+  }));
+}
+
+function renderCategory(catId) {
+  state.screen = 'category'; state.categoryId = catId;
+  const cat = CATEGORIES[catId];
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="cat-header"><div class="cat-title">${cat.emoji} ${cat.name}</div></div>
+      <div class="games-grid">
+        ${cat.games.map(g => `
+          <button class="game-card" data-game="${g.id}">
+            <span class="emoji">${g.emoji}</span>
+            <span class="name">${g.name}</span>
+            <span class="desc">${g.desc}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>`;
+  bindHeader(true, renderHome);
+  document.querySelectorAll('[data-game]').forEach(b => b.addEventListener('click', () => {
+    initAudio(); playClick(); startGame(b.dataset.game);
+  }));
+}
+
+function startGame(gameId) {
+  state.gameId = gameId; state.questionNum = 0; state.score = 0;
+  state.firstAttempt = true; state.totalQ = 10;
+  if (gameId === 'learnNumbers') { state.learnNumber = 1; renderLearnNumbers(); return; }
+  if (gameId === 'learnClock') { state.clockState = {h: 3, m: 0}; renderLearnClock(); return; }
+  if (gameId === 'mathMemory') { renderMemory(); return; }
+  if (gameId === 'numberSearch') { state.numberSearch = null; startNumberSearch(); return; }
+  if (gameId === 'quickChallenge') { state.totalQ = 999; startQuickChallenge(); return; }
+  if (gameId === 'maze') { startMazeGame(); return; }
+  if (gameId === 'ordering') { renderOrdering(); return; }
+  renderGameScreen();
+  nextQuestion();
+}
+
+function renderGameScreen() {
+  state.screen = 'game';
+  const gi = findGameInfo(state.gameId);
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="game-topbar">
+        <div class="score-text">${gi.emoji} ${state.score}</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <div class="question-area" id="question-area"></div>
+    </div>`;
+  bindHeader(true, () => renderCategory(state.categoryId));
+}
+
+function findGameInfo(gameId) {
+  for (const cat of Object.values(CATEGORIES)) {
+    const g = cat.games.find(x => x.id === gameId);
+    if (g) return g;
+  }
+  return { emoji: '❓', name: '' };
+}
+function updateProgress() {
+  const fill = document.getElementById('progress-fill');
+  if (fill) fill.style.width = Math.min(100, (state.questionNum / state.totalQ) * 100) + '%';
+}
+function nextQuestion() {
+  if (state.questionNum >= state.totalQ) { showWin(); return; }
+  state.firstAttempt = true;
+  updateProgress();
+  state.currentQ = generateQuestion(state.gameId);
+  renderQuestion();
+}
+
+/* ==================== مولّدات الأسئلة ==================== */
+function generateQuestion(gameId) {
+  const d = getDiff();
+  switch (gameId) {
+    case 'counting': return genCounting(d);
+    case 'compare': return genCompare(d);
+    case 'addition': return genAddition(d);
+    case 'subtraction': return genSubtraction(d);
+    case 'multiplication': return genMultiplication(d);
+    case 'division': return genDivision(d);
+    case 'shapes': return genShapes(d);
+    case 'patterns': return genPatterns(d);
+    case 'readClock': return genReadClock(d);
+    case 'setClock': return genSetClock(d);
+    case 'length': return genLength(d);
+    case 'weight': return genWeight(d);
+    case 'volume': return genVolume(d);
+    case 'missingNumber': return genMissingNumber(d);
+    case 'balanceEq': return genBalanceEq(d);
+    case 'fractions': return genFractions(d);
+  }
+  return null;
+}
+
+function uniqueOptions(correct, generator, count = 4) {
+  const opts = new Set([correct]);
+  let tries = 0;
+  while (opts.size < count && tries < 50) {
+    const v = generator();
+    if (v >= 0 && !opts.has(v)) opts.add(v);
+    tries++;
+  }
+  return shuffle(Array.from(opts));
+}
+
+function genCounting(d) {
+  const max = d==='easy'?10:d==='medium'?15:20;
+  const n = randInt(1, max);
+  const obj = pick(OBJECTS);
+  const wrongs = uniqueOptions(n, () => randInt(1, max));
+  const opts = shuffle([n, ...wrongs.filter(x=>x!==n).slice(0,3)]);
+  return {
+    promptHtml: `<div class="objects-box">${Array(n).fill(`<span class="object-item">${obj}</span>`).join('')}</div>
+      <p class="question-text">كم عدد هذه الأشياء؟</p>`,
+    options: opts.map(v => ({label: String(v), sub: arWord(v), value: v})),
+    correct: n
+  };
+}
+function genCompare(d) {
+  const max = d==='easy'?10:d==='medium'?20:50;
+  const a = randInt(1, max), b = randInt(1, max);
+  const ans = a > b ? '>' : a < b ? '<' : '=';
+  return {
+    promptHtml: `<div style="display:flex;gap:20px;align-items:center;justify-content:center;font-size:70px;font-weight:900;color:#fff;text-shadow:3px 3px 0 rgba(118,75,162,.5);direction:ltr;padding:20px;background:rgba(255,255,255,.15);border-radius:24px;backdrop-filter:blur(10px)">
+      <span>${a}</span><span style="opacity:.5;font-size:50px">?</span><span>${b}</span></div>
+      <p class="question-text" style="margin-top:16px">اختر الإشارة الصحيحة</p>`,
+    options: shuffle(['>','<','=']).map(s => ({label: s, sub: s==='>'?'أكبر':s==='<'?'أصغر':'يساوي', value: s})),
+    correct: ans
+  };
+}
+function genAddition(d) {
+  const max = d==='easy'?10:d==='medium'?20:100;
+  const a = randInt(1, Math.floor(max/2)), b = randInt(1, max-a);
+  const ans = a + b;
+  const wrongs = uniqueOptions(ans, () => Math.max(0, ans + randInt(-5,5)));
+  const opts = shuffle([ans, ...wrongs.filter(x=>x!==ans).slice(0,3)]);
+  return { promptHtml: `<div class="equation-display">${a} + ${b} = ?</div>`, options: opts.map(v => ({label: String(v), value: v})), correct: ans };
+}
+function genSubtraction(d) {
+  const max = d==='easy'?10:d==='medium'?20:100;
+  const a = randInt(2, max), b = randInt(1, a-1);
+  const ans = a - b;
+  const wrongs = uniqueOptions(ans, () => Math.max(0, ans + randInt(-5,5)));
+  const opts = shuffle([ans, ...wrongs.filter(x=>x!==ans).slice(0,3)]);
+  return { promptHtml: `<div class="equation-display">${a} − ${b} = ?</div>`, options: opts.map(v => ({label: String(v), value: v})), correct: ans };
+}
+function genMultiplication(d) {
+  const maxA = d==='easy'?5:d==='medium'?10:12;
+  const a = randInt(2, maxA), b = randInt(2, maxA);
+  const ans = a * b;
+  const wrongs = uniqueOptions(ans, () => Math.max(1, ans + randInt(-a*2, a*2)));
+  const opts = shuffle([ans, ...wrongs.filter(x=>x!==ans).slice(0,3)]);
+  return { promptHtml: `<div class="equation-display">${a} × ${b} = ?</div>`, options: opts.map(v => ({label: String(v), value: v})), correct: ans };
+}
+function genDivision(d) {
+  const maxQ = d==='easy'?5:d==='medium'?10:12;
+  const b = randInt(2, maxQ), q = randInt(2, maxQ);
+  const a = b * q;
+  const wrongs = uniqueOptions(q, () => randInt(1, maxQ));
+  const opts = shuffle([q, ...wrongs.filter(x=>x!==q).slice(0,3)]);
+  return { promptHtml: `<div class="equation-display">${a} ÷ ${b} = ?</div>`, options: opts.map(v => ({label: String(v), value: v})), correct: q };
+}
+function genShapes(d) {
+  const target = pick(SHAPES);
+  const wrongs = shuffle(SHAPES.filter(s => s.name !== target.name)).slice(0,3);
+  const opts = shuffle([target, ...wrongs]);
+  return {
+    promptHtml: `<svg class="shape-display" viewBox="0 0 100 100">${target.svg}</svg><p class="question-text">ما هذا الشكل؟</p>`,
+    options: opts.map(s => ({label: s.name, value: s.name})), correct: target.name
+  };
+}
+function genPatterns(d) {
+  const patterns = d==='easy' ? [
+    {seq:['🔴','🔵','🔴','🔵','🔴'],ans:'🔵',pool:['🔵','🟢','🟡','🟣']},
+    {seq:['⭐','🌙','⭐','🌙','⭐'],ans:'🌙',pool:['🌙','☀️','🌞','⭐']},
+    {seq:['🍎','🍌','🍎','🍌','🍎'],ans:'🍌',pool:['🍌','🍇','🍊','🍓']},
+    {seq:['⬛','⬜','⬛','⬜','⬛'],ans:'⬜',pool:['⬜','🟥','🟦','🟩']},
+    {seq:['🔺','🔻','🔺','🔻','🔺'],ans:'🔻',pool:['🔻','🔷','🔶','⬛']},
+  ] : d==='medium' ? [
+    {seq:['2','4','6','8'],ans:'10',pool:['10','9','11','12']},
+    {seq:['5','10','15','20'],ans:'25',pool:['25','24','30','22']},
+    {seq:['1','3','5','7'],ans:'9',pool:['9','8','10','11']},
+    {seq:['10','20','30','40'],ans:'50',pool:['50','45','55','60']},
+    {seq:['3','6','9','12'],ans:'15',pool:['15','14','18','16']},
+  ] : [
+    {seq:['2','4','8','16'],ans:'32',pool:['32','24','30','36']},
+    {seq:['1','4','9','16'],ans:'25',pool:['25','20','24','30']},
+    {seq:['2','6','12','20'],ans:'30',pool:['30','28','32','26']},
+    {seq:['1','2','4','8'],ans:'16',pool:['16','12','14','20']},
+    {seq:['3','9','27'],ans:'81',pool:['81','54','72','90']},
+  ];
+  const p = pick(patterns);
+  const opts = shuffle([p.ans, ...p.pool.filter(x=>x!==p.ans).slice(0,3)]);
+  return {
+    promptHtml: `<div class="equation-display" style="font-size:32px;letter-spacing:6px">${p.seq.join(' ')} ?</div><p class="question-text" style="margin-top:16px">ما العنصر التالي في النمط؟</p>`,
+    options: opts.map(v => ({label: String(v), value: v})), correct: p.ans
+  };
+}
+
+/* ====== الساعة ====== */
+function genReadClock(d) {
+  const h = randInt(1, 12);
+  const m = pick([0, 15, 30, 45]);
+  const target = `${h}:${m.toString().padStart(2,'0')}`;
+  const wrongs = [];
+  while (wrongs.length < 3) {
+    const wh = randInt(1, 12), wm = pick([0, 15, 30, 45]);
+    const wt = `${wh}:${wm.toString().padStart(2,'0')}`;
+    if (wt !== target && !wrongs.includes(wt)) wrongs.push(wt);
+  }
+  const opts = shuffle([target, ...wrongs]);
+  return {
+    promptHtml: `<div class="clock-wrap">${drawClock(h, m)}</div><p class="question-text">كم الساعة الآن؟</p>`,
+    options: opts.map(v => ({label: v, value: v})), correct: target
+  };
+}
+function genSetClock(d) {
+  const h = randInt(1, 12);
+  const m = pick([0, 15, 30, 45]);
+  const target = `${h}:${m.toString().padStart(2,'0')}`;
+  const wrongsData = [];
+  const seen = new Set([target]);
+  while (wrongsData.length < 3) {
+    const wh = randInt(1, 12), wm = pick([0, 15, 30, 45]);
+    const wt = `${wh}:${wm.toString().padStart(2,'0')}`;
+    if (!seen.has(wt)) { seen.add(wt); wrongsData.push({h: wh, m: wm, t: wt}); }
+  }
+  const opts = shuffle([{h, m, t: target}, ...wrongsData]);
+  return {
+    promptHtml: `<div class="equation-display" style="font-size:52px">${target}</div><p class="question-text" style="margin-top:12px">اختر الساعة الصحيحة</p>`,
+    options: opts.map(o => ({label: '', value: o.t, clockHtml: `<div class="clock-wrap">${drawClock(o.h, o.m)}</div>`})), correct: target
+  };
+}
+
+/* ====== القياس ====== */
+function genLength(d) {
+  if (d === 'easy') {
+    const pairs = [
+      {a:{e:'🐍',n:'ثعبان'}, b:{e:'🐛',n:'دودة'}, ans:'a'},
+      {a:{e:'🚂',n:'قطار'}, b:{e:'🚗',n:'سيارة'}, ans:'a'},
+      {a:{e:'🏢',n:'بناية'}, b:{e:'🏠',n:'بيت'}, ans:'a'},
+      {a:{e:'✏️',n:'قلم'}, b:{e:'📏',n:'مسطرة'}, ans:'b'},
+      {a:{e:'🌳',n:'شجرة'}, b:{e:'🌱',n:'نبتة'}, ans:'a'},
+      {a:{e:'🚢',n:'سفينة'}, b:{e:'⛵',n:'قارب'}, ans:'a'},
+      {a:{e:'🦒',n:'زرافة'}, b:{e:'🐜',n:'نملة'}, ans:'a'},
+      {a:{e:'🗼',n:'برج'}, b:{e:'⛺',n:'خيمة'}, ans:'a'},
+      {a:{e:'🐳',n:'حوت'}, b:{e:'🐠',n:'سمكة'}, ans:'a'},
+      {a:{e:'🌉',n:'جسر'}, b:{e:'🚪',n:'باب'}, ans:'a'},
+      {a:{e:'🐘',n:'فيل'}, b:{e:'🐈',n:'قطة'}, ans:'a'},
+      {a:{e:'📞',n:'هاتف'}, b:{e:'⌚',n:'ساعة يد'}, ans:'a'},
+      {a:{e:'🛏️',n:'سرير'}, b:{e:'🪑',n:'كرسي'}, ans:'a'},
+      {a:{e:'🚁',n:'مروحية'}, b:{e:'✈️',n:'طائرة'}, ans:'b'},
+      {a:{e:'🐊',n:'تمساح'}, b:{e:'🦎',n:'سحلية'}, ans:'a'},
+    ];
+    const p = pick(pairs);
+    return {
+      promptHtml: `<div class="compare-box">
+        <div class="compare-item"><div class="em">${p.a.e}</div><div class="lbl">${p.a.n}</div></div>
+        <div class="compare-symbol">📏</div>
+        <div class="compare-item"><div class="em">${p.b.e}</div><div class="lbl">${p.b.n}</div></div>
+      </div><p class="question-text" style="margin-top:16px">أيهما أطول؟</p>`,
+      options: [{label: p.a.n, value:'a'}, {label: p.b.n, value:'b'}], correct: p.ans
+    };
+  }
+  const conversions = d === 'medium' ? [
+    {q:'1 متر = ? سم', ans:100, opts:[10, 100, 1000, 50]},
+    {q:'1 كم = ? متر', ans:1000, opts:[100, 500, 1000, 10000]},
+    {q:'100 سم = ? متر', ans:1, opts:[1, 10, 100, 0.1]},
+    {q:'1 متر = ? مم', ans:1000, opts:[10, 100, 1000, 10000]},
+    {q:'10 دسم = ? سم', ans:100, opts:[1, 10, 100, 1000]},
+    {q:'1 كم = ? سم', ans:100000, opts:[1000, 10000, 100000, 1000000]},
+  ] : [
+    {q:'2.5 متر = ? سم', ans:250, opts:[25, 250, 2500, 25000]},
+    {q:'500 متر = ? كم', ans:0.5, opts:[0.5, 5, 50, 0.05]},
+    {q:'7500 ملم = ? متر', ans:7.5, opts:[0.75, 7.5, 75, 750]},
+    {q:'3.2 كم = ? متر', ans:3200, opts:[32, 320, 3200, 32000]},
+  ];
+  const c = pick(conversions);
+  return {
+    promptHtml: `<div class="equation-display" style="font-size:30px;direction:rtl">${c.q}</div>`,
+    options: shuffle(c.opts).map(v => ({label: String(v), value: v})), correct: c.ans
+  };
+}
+function genWeight(d) {
+  if (d === 'easy') {
+    const pairs = [
+      {a:{e:'🐘',n:'فيل'}, b:{e:'🐜',n:'نملة'}, ans:'a'},
+      {a:{e:'🪶',n:'ريشة'}, b:{e:'🧱',n:'طوبة'}, ans:'b'},
+      {a:{e:'⚽',n:'كرة قدم'}, b:{e:'🏀',n:'كرة سلة'}, ans:'b'},
+      {a:{e:'📚',n:'كتب'}, b:{e:'📄',n:'ورقة'}, ans:'a'},
+      {a:{e:'🍉',n:'بطيخة'}, b:{e:'🍎',n:'تفاحة'}, ans:'a'},
+      {a:{e:'🐳',n:'حوت'}, b:{e:'🐠',n:'سمكة'}, ans:'a'},
+      {a:{e:'🚚',n:'شاحنة'}, b:{e:'🛵',n:'دراجة'}, ans:'a'},
+      {a:{e:'🪨',n:'صخرة'}, b:{e:'🌰',n:'بندقة'}, ans:'a'},
+      {a:{e:'🏋️',n:'حديد'}, b:{e:'🎈',n:'بالون'}, ans:'a'},
+      {a:{e:'🐻',n:'دب'}, b:{e:'🐰',n:'أرنب'}, ans:'a'},
+      {a:{e:'🥥',n:'جوز هند'}, b:{e:'🍇',n:'عنب'}, ans:'a'},
+      {a:{e:'🚛',n:'قاطرة'}, b:{e:'🚲',n:'دراجة هوائية'}, ans:'a'},
+      {a:{e:'🗿',n:'تمثال'}, b:{e:'🪴',n:'نبتة'}, ans:'a'},
+      {a:{e:'🏀',n:'كرة سلة'}, b:{e:'🏓',n:'كرة بينغ بونغ'}, ans:'a'},
+      {a:{e:'🧊',n:'مكعب ثلج'}, b:{e:'💧',n:'قطرة'}, ans:'a'},
+    ];
+    const p = pick(pairs);
+    return {
+      promptHtml: `<div class="compare-box">
+        <div class="compare-item"><div class="em">${p.a.e}</div><div class="lbl">${p.a.n}</div></div>
+        <div class="compare-symbol">⚖️</div>
+        <div class="compare-item"><div class="em">${p.b.e}</div><div class="lbl">${p.b.n}</div></div>
+      </div><p class="question-text" style="margin-top:16px">أيهما أثقل؟</p>`,
+      options: [{label: p.a.n, value:'a'}, {label: p.b.n, value:'b'}], correct: p.ans
+    };
+  }
+  const conversions = d === 'medium' ? [
+    {q:'1 كجم = ? جم', ans:1000, opts:[10, 100, 1000, 100]},
+    {q:'500 جم = ? كجم', ans:0.5, opts:[0.5, 5, 50, 0.05]},
+    {q:'1 طن = ? كجم', ans:1000, opts:[100, 500, 1000, 10000]},
+    {q:'2500 جم = ? كجم', ans:2.5, opts:[0.25, 2.5, 25, 250]},
+    {q:'1 كجم = ? ملجم', ans:1000000, opts:[1000, 10000, 100000, 1000000]},
+    {q:'3 كجم = ? جم', ans:3000, opts:[30, 300, 3000, 30000]},
+  ] : [
+    {q:'2.5 كجم = ? جم', ans:2500, opts:[25, 250, 2500, 25000]},
+    {q:'3000 جم = ? كجم', ans:3, opts:[0.3, 3, 30, 300]},
+    {q:'7.5 كجم = ? جم', ans:7500, opts:[75, 750, 7500, 75000]},
+    {q:'2500000 ملجم = ? كجم', ans:2.5, opts:[0.25, 2.5, 25, 250]},
+  ];
+  const c = pick(conversions);
+  return {
+    promptHtml: `<div class="equation-display" style="font-size:30px;direction:rtl">${c.q}</div>`,
+    options: shuffle(c.opts).map(v => ({label: String(v), value: v})), correct: c.ans
+  };
+}
+function genVolume(d) {
+  if (d === 'easy') {
+    const pairs = [
+      {a:{e:'🥛',n:'كوب'}, b:{e:'🪣',n:'دلو'}, ans:'b'},
+      {a:{e:'🍵',n:'فنجان'}, b:{e:'🥤',n:'كأس'}, ans:'b'},
+      {a:{e:'💧',n:'قطرة'}, b:{e:'🌊',n:'بحر'}, ans:'b'},
+      {a:{e:'🥄',n:'ملعقة'}, b:{e:'🍶',n:'زجاجة'}, ans:'b'},
+      {a:{e:'🛁',n:'حوض'}, b:{e:'🏊',n:'مسبح'}, ans:'b'},
+      {a:{e:'🧃',n:'علبة عصير'}, b:{e:'🍼',n:'رضّاعة'}, ans:'a'},
+      {a:{e:'☕',n:'كوب قهوة'}, b:{e:'🫖',n:'إبريق شاي'}, ans:'b'},
+      {a:{e:'🚰',n:'صنبور'}, b:{e:'🌊',n:'محيط'}, ans:'b'},
+      {a:{e:'🪣',n:'دلو'}, b:{e:'🥃',n:'كأس صغير'}, ans:'a'},
+      {a:{e:'🧴',n:'قارورة'}, b:{e:'🛢️',n:'برميل'}, ans:'b'},
+      {a:{e:'🍯',n:'جرة عسل'}, b:{e:'🥛',n:'كوب حليب'}, ans:'a'},
+      {a:{e:'🫗',n:'زجاجة ماء'}, b:{e:'💦',n:'رشاش'}, ans:'a'},
+      {a:{e:'🌧️',n:'مطر'}, b:{e:'🌊',n:'فيضان'}, ans:'b'},
+      {a:{e:'🏞️',n:'بحيرة'}, b:{e:'🥣',n:'طبق'}, ans:'a'},
+      {a:{e:'⚗️',n:'أنبوب مخبري'}, b:{e:'🍶',n:'قارورة'}, ans:'b'},
+    ];
+    const p = pick(pairs);
+    return {
+      promptHtml: `<div class="compare-box">
+        <div class="compare-item"><div class="em">${p.a.e}</div><div class="lbl">${p.a.n}</div></div>
+        <div class="compare-symbol">💧</div>
+        <div class="compare-item"><div class="em">${p.b.e}</div><div class="lbl">${p.b.n}</div></div>
+      </div><p class="question-text" style="margin-top:16px">أيهما يستوعب أكثر؟</p>`,
+      options: [{label: p.a.n, value:'a'}, {label: p.b.n, value:'b'}], correct: p.ans
+    };
+  }
+  const conversions = d === 'medium' ? [
+    {q:'1 لتر = ? مل', ans:1000, opts:[10, 100, 1000, 10000]},
+    {q:'500 مل = ? لتر', ans:0.5, opts:[0.5, 5, 50, 0.05]},
+    {q:'1 لتر = ? سم³', ans:1000, opts:[10, 100, 1000, 10000]},
+    {q:'2 لتر = ? مل', ans:2000, opts:[20, 200, 2000, 20000]},
+    {q:'750 مل = ? لتر', ans:0.75, opts:[0.075, 0.75, 7.5, 75]},
+    {q:'1 جالون ≈ ? لتر', ans:3.8, opts:[0.38, 3.8, 38, 380]},
+  ] : [
+    {q:'2.5 لتر = ? مل', ans:2500, opts:[25, 250, 2500, 25000]},
+    {q:'1500 مل = ? لتر', ans:1.5, opts:[0.15, 1.5, 15, 150]},
+    {q:'3.75 لتر = ? مل', ans:3750, opts:[37.5, 375, 3750, 37500]},
+    {q:'4500 مل = ? لتر', ans:4.5, opts:[0.45, 4.5, 45, 450]},
+  ];
+  const c = pick(conversions);
+  return {
+    promptHtml: `<div class="equation-display" style="font-size:30px;direction:rtl">${c.q}</div>`,
+    options: shuffle(c.opts).map(v => ({label: String(v), value: v})), correct: c.ans
+  };
+}
+
+/* ====== ألعاب ممتعة ====== */
+function genMissingNumber(d) {
+  const step = d === 'easy' ? 1 : d === 'medium' ? 2 : randInt(2, 5);
+  const start = randInt(1, d === 'easy' ? 5 : 10);
+  const seq = [];
+  for (let i = 0; i < 5; i++) seq.push(start + i * step);
+  const idx = randInt(1, 3);
+  const answer = seq[idx];
+  const display = seq.map((v, i) => i === idx ? '?' : v);
+  const wrongs = uniqueOptions(answer, () => answer + randInt(-3, 3));
+  return {
+    promptHtml: `<div class="equation-display" style="font-size:34px;letter-spacing:2px">${display.join(' , ')}</div><p class="question-text" style="margin-top:16px">ما الرقم المفقود؟</p>`,
+    options: shuffle([answer, ...wrongs.filter(x=>x!==answer).slice(0,3)]).map(v => ({label: String(v), value: v})), correct: answer
+  };
+}
+function genBalanceEq(d) {
+  const emojis = ['🍎','🍌','🍇','🍊','⭐','🎈','🌸','🍪'];
+  const item = pick(emojis);
+  const count = d === 'easy' ? 2 : d === 'medium' ? randInt(2, 4) : randInt(3, 5);
+  const perItem = d === 'easy' ? randInt(1, 5) : d === 'medium' ? randInt(2, 7) : randInt(3, 9);
+  const total = count * perItem;
+  const eq = Array(count).fill(item).join(' + ');
+  const wrongs = uniqueOptions(perItem, () => perItem + randInt(-3, 3));
+  return {
+    promptHtml: `<div class="equation-display" style="font-size:28px;direction:rtl;letter-spacing:1px">${eq} = ${total}</div><p class="question-text" style="margin-top:12px">كم يساوي ${item} ؟</p>`,
+    options: shuffle([perItem, ...wrongs.filter(x=>x!==perItem).slice(0,3)]).map(v => ({label: String(v), value: v})), correct: perItem
+  };
+}
+function genFractions(d) {
+  const fractions = d === 'easy' ? [
+    {n:1, d:2, name:'نصف'}, {n:1, d:4, name:'ربع'}, {n:1, d:3, name:'ثلث'}, {n:3, d:4, name:'ثلاثة أرباع'},
+  ] : d === 'medium' ? [
+    {n:1, d:2, name:'نصف'}, {n:1, d:3, name:'ثلث'}, {n:2, d:3, name:'ثلثان'},
+    {n:1, d:4, name:'ربع'}, {n:3, d:4, name:'ثلاثة أرباع'}, {n:1, d:5, name:'خمس'}, {n:2, d:5, name:'خمسان'},
+  ] : [
+    {n:1, d:6, name:'سدس'}, {n:5, d:6, name:'خمسة أسداس'},
+    {n:1, d:8, name:'ثمن'}, {n:3, d:8, name:'ثلاثة أثمان'}, {n:7, d:8, name:'سبعة أثمان'},
+  ];
+  const target = pick(fractions);
+  const wrongs = fractions.filter(f => !(f.n === target.n && f.d === target.d));
+  const opts = shuffle([target, ...shuffle(wrongs).slice(0, 3)]);
+  return {
+    promptHtml: `<div style="padding:12px">${drawFraction(target.n, target.d)}</div><p class="question-text">ما هذا الكسر؟</p>`,
+    options: opts.map(f => ({label: f.name, value: f.name})), correct: target.name
+  };
+}
+
+/* ==================== عرض الأسئلة ==================== */
+function renderQuestion() {
+  const area = document.getElementById('question-area');
+  if (!area) return;
+  if (state.gameId === 'ordering') { renderOrdering(); return; }
+  const q = state.currentQ;
+  if (!q) { area.innerHTML = '<p class="question-text">جارٍ التحميل...</p>'; return; }
+  area.innerHTML = `
+    <div class="prompt-box">${q.promptHtml}</div>
+    <div class="options-grid" id="options-grid">
+      ${q.options.map((o, i) => `
+        <button class="option-btn ${o.clockHtml ? 'clock-option' : ''}" data-idx="${i}">
+          ${o.clockHtml || `<span>${o.label}</span>`}
+          ${o.sub ? `<span class="opt-sub">${o.sub}</span>` : ''}
+        </button>`).join('')}
+    </div>`;
+  area.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleAnswer(btn, parseInt(btn.dataset.idx)));
+  });
+  speakQuestion(state.gameId, q);
+}
+
+function handleAnswer(btn, idx) {
+  if (btn.disabled) return;
+  const q = state.currentQ;
+  const opt = q.options[idx];
+  if (opt.value === q.correct) {
+    btn.classList.add('correct');
+    playCorrect(); vibrate(50);
+    document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+    const r = btn.getBoundingClientRect();
+    confetti(r.left + r.width/2, r.top + r.height/2);
+    if (state.firstAttempt) { addStar(); state.score++; state.correctTotal++; }
+    const praises = ['أحسنت!','رائع!','ممتاز!','بطل!','مذهل!','عمل رائع!'];
+    speakDelayed(pick(praises), 200);
+    setTimeout(() => { state.questionNum++; nextQuestion(); }, 1200);
+  } else {
+    btn.classList.add('wrong'); btn.disabled = true;
+    state.firstAttempt = false;
+    playWrong(); vibrate([30,30,30]);
+    setTimeout(() => btn.classList.remove('wrong'), 500);
+    toast('حاول مرة أخرى! 💪');
+    speakDelayed('حاول مرة أخرى', 200);
+  }
+}
+
+/* ==================== تعلّم الأرقام ==================== */
+function renderLearnNumbers() {
+  state.screen = 'game';
+  const max = state.difficulty==='easy'?10:state.difficulty==='medium'?20:30;
+  const n = state.learnNumber;
+  const dots = Array(Math.min(n, 20)).fill('<div style="width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)"></div>').join('');
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="question-area" style="justify-content:center">
+        <div class="explore-display">
+          <div style="display:flex;gap:24px;align-items:center;justify-content:center;font-size:80px;font-weight:900;color:#fff;text-shadow:4px 4px 0 rgba(118,75,162,.5);line-height:1;font-family:Arial Black;direction:ltr">
+            <div style="text-align:center"><div>${toArabicDigits(n)}</div><div style="font-size:12px;opacity:.8;font-family:Segoe UI;direction:rtl;font-weight:normal">عربي</div></div>
+            <div style="text-align:center"><div>${n}</div><div style="font-size:12px;opacity:.8;font-family:Segoe UI;font-weight:normal">English</div></div>
+          </div>
+          <div class="number-words"><div class="ar">${arWord(n)}</div><div class="en">${enWord(n)}</div></div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:14px;background:rgba(255,255,255,.15);border-radius:20px;backdrop-filter:blur(10px);max-width:260px">${dots}</div>
+          <div class="explore-nav">
+            <button class="nav-btn" id="prev-num" ${n<=1?'disabled':''}>◀</button>
+            <button class="speak-btn" id="speak-num">🔊</button>
+            <button class="nav-btn" id="next-num" ${n>=max?'disabled':''}>▶</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  bindHeader(true, () => renderCategory('numbers'));
+  const prev = document.getElementById('prev-num');
+  const next = document.getElementById('next-num');
+  const sp = document.getElementById('speak-num');
+  if (prev) prev.addEventListener('click', () => { if(state.learnNumber>1){state.learnNumber--;playClick();renderLearnNumbers();} });
+  if (next) next.addEventListener('click', () => { if(state.learnNumber<max){state.learnNumber++;playClick();renderLearnNumbers();} });
+  if (sp) sp.addEventListener('click', () => { initAudio(); speak(arWord(n)); });
+  speakDelayed(arWord(n), 400);
+}
+function toArabicDigits(n) {
+  const ar = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  return String(n).split('').map(c => ar[parseInt(c)] || c).join('');
+}
+
+/* ==================== تعلّم الساعة ==================== */
+function renderLearnClock() {
+  state.screen = 'game';
+  const {h, m} = state.clockState;
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="question-area" style="justify-content:center">
+        <div class="explore-display">
+          <div class="clock-wrap">${drawClock(h, m)}</div>
+          <div class="equation-display" style="font-size:44px;margin-top:6px">${h}:${m.toString().padStart(2,'0')}</div>
+          <div class="number-words"><div class="ar">${readTimeAr(h, m)}</div></div>
+          <div class="explore-nav">
+            <button class="nav-btn" id="prev-time">◀</button>
+            <button class="speak-btn" id="speak-time">🔊</button>
+            <button class="nav-btn" id="next-time">▶</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  bindHeader(true, () => renderCategory('time'));
+  document.getElementById('prev-time').addEventListener('click', () => { playClick(); adjustClock(-1); renderLearnClock(); });
+  document.getElementById('next-time').addEventListener('click', () => { playClick(); adjustClock(1); renderLearnClock(); });
+  document.getElementById('speak-time').addEventListener('click', () => { initAudio(); speak(readTimeAr(h, m)); });
+  speakDelayed(readTimeAr(h, m), 400);
+}
+function adjustClock(delta) {
+  const c = state.clockState;
+  c.m += delta * 15;
+  if (c.m >= 60) { c.m = 0; c.h = (c.h % 12) + 1; }
+  if (c.m < 0) { c.m = 45; c.h = ((c.h - 2 + 12) % 12) + 1; }
+  if (c.h > 12) c.h = 1;
+  if (c.h < 1) c.h = 12;
+}
+
+/* ==================== الترتيب ==================== */
+function renderOrdering() {
+  state.screen = 'game';
+  const d = getDiff();
+  const max = d==='easy'?10:d==='medium'?20:50;
+  const nums = [];
+  while (nums.length < 4) {
+    const v = randInt(1, max);
+    if (!nums.includes(v)) nums.push(v);
+  }
+  const asc = Math.random() > 0.5;
+  const sorted = [...nums].sort((a,b) => asc ? a-b : b-a);
+  state.orderState = { nums: shuffle([...nums]), sorted, current: 0, asc };
+
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="game-topbar">
+        <div class="score-text">📊 ${state.score}</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:${(state.questionNum/state.totalQ)*100}%"></div></div>
+      </div>
+      <div class="question-area" id="question-area"></div>
+    </div>`;
+  bindHeader(true, () => renderCategory('numbers'));
+
+  const area = document.getElementById('question-area');
+  if (!area) return;
+  area.innerHTML = `
+    <div class="order-wrap">
+      <p class="order-instruction">رتّب من ${asc?'الأصغر إلى الأكبر ⬆️':'الأكبر إلى الأصغر ⬇️'}</p>
+      <div class="order-slots" id="order-slots">
+        ${sorted.map((_, i) => `<div class="order-slot ${i===0?'current':''}" data-slot="${i}"></div>`).join('')}
+      </div>
+      <div class="order-options" id="order-options">
+        ${state.orderState.nums.map(v => `<button class="order-num-btn" data-val="${v}">${v}</button>`).join('')}
+      </div>
+    </div>`;
+  document.querySelectorAll('.order-num-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleOrderTap(btn));
+  });
+  speakDelayed(asc ? 'رتّب الأرقام من الأصغر إلى الأكبر' : 'رتّب الأرقام من الأكبر إلى الأصغر', 400);
+}
+function handleOrderTap(btn) {
+  const st = state.orderState;
+  if (!st) return;
+  const val = parseInt(btn.dataset.val);
+  if (val === st.sorted[st.current]) {
+    playCorrect(); btn.classList.add('used');
+    const slot = document.querySelector(`[data-slot="${st.current}"]`);
+    if (slot) {
+      slot.textContent = val;
+      slot.classList.add('filled');
+      slot.classList.remove('current');
+    }
+    st.current++;
+    const nextSlot = document.querySelector(`[data-slot="${st.current}"]`);
+    if (nextSlot) nextSlot.classList.add('current');
+    if (st.current === 4) {
+      if (state.firstAttempt) { addStar(); state.score++; state.correctTotal++; }
+      vibrate(50);
+      const area = document.getElementById('question-area');
+      if (area) { const r = area.getBoundingClientRect(); confetti(r.left+r.width/2, r.top+r.height/2); }
+      speakDelayed('أحسنت!', 200);
+      setTimeout(() => {
+        state.questionNum++;
+        if (state.questionNum >= state.totalQ) { showWin(); return; }
+        state.firstAttempt = true;
+        renderOrdering();
+      }, 1400);
+    }
+  } else {
+    playWrong(); vibrate(30);
+    state.firstAttempt = false;
+    btn.classList.add('wrong-shake');
+    setTimeout(() => btn.classList.remove('wrong-shake'), 400);
+    speakDelayed('حاول مرة أخرى', 200);
+  }
+}
+
+/* ==================== المتاهة ==================== */
+function startMazeGame() {
+  state.screen = 'game';
+  const d = getDiff();
+  const target = randInt(1, d==='easy'?9:20);
+  const pathLength = d==='easy'?4:d==='medium'?5:6;
+  const gridSize = 16;
+  const grid = new Array(gridSize).fill(null);
+  const pathPositions = [0];
+  let current = 0;
+  while (pathPositions.length < pathLength) {
+    const neighbors = [];
+    const row = Math.floor(current/4), col = current%4;
+    if (row > 0 && !pathPositions.includes(current-4)) neighbors.push(current-4);
+    if (row < 3 && !pathPositions.includes(current+4)) neighbors.push(current+4);
+    if (col > 0 && !pathPositions.includes(current-1)) neighbors.push(current-1);
+    if (col < 3 && !pathPositions.includes(current+1)) neighbors.push(current+1);
+    if (neighbors.length === 0) break;
+    current = pick(neighbors);
+    pathPositions.push(current);
+  }
+  pathPositions.forEach((pos, i) => { grid[pos] = target + i; });
+  for (let i = 0; i < gridSize; i++) {
+    if (grid[i] === null) {
+      let v;
+      do { v = randInt(Math.max(1, target-3), target+pathLength+3); }
+      while (v === target || (grid.includes(v) && Math.random() > 0.3));
+      grid[i] = Math.max(1, v);
+    }
+  }
+  state.mazeState = { grid, target, pathLength, pathPositions, currentStep: 0, expectedNumber: target, startPos: pathPositions[0] };
+  renderMazeGame();
+}
+function renderMazeGame() {
+  const ms = state.mazeState;
+  if (!ms) { startMazeGame(); return; }
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="game-topbar">
+        <div class="score-text">🌀 ${state.score}</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:${(state.questionNum/state.totalQ)*100}%"></div></div>
+      </div>
+      <div class="question-area" style="justify-content:flex-start;padding-top:10px">
+        <div class="maze-target">ابحث عن الرقم التالي: <span class="num">${ms.expectedNumber}</span></div>
+        <div class="maze-progress">
+          ${Array(ms.pathLength).fill(0).map((_, i) => `<div class="maze-dot ${i < ms.currentStep ? 'done' : ''}"></div>`).join('')}
+        </div>
+        <div class="maze-grid" id="maze-grid">
+          ${ms.grid.map((v, i) => `<button class="maze-cell ${i === ms.startPos ? 'start' : ''}" data-idx="${i}" data-val="${v}">${v}</button>`).join('')}
+        </div>
+        <p class="question-text" style="font-size:13px;margin-top:8px">اضغط على الأرقام بالترتيب التصاعدي بدءاً من ${ms.target}</p>
+      </div>
+    </div>`;
+  bindHeader(true, () => renderCategory('measure'));
+  document.querySelectorAll('.maze-cell').forEach(cell => cell.addEventListener('click', () => handleMazeTap(cell)));
+  speakDelayed(`ابحث عن الرقم ${arWord(ms.expectedNumber)}`, 400);
+}
+function handleMazeTap(cell) {
+  const ms = state.mazeState;
+  if (!ms) return;
+  if (cell.classList.contains('correct')) return;
+  const val = parseInt(cell.dataset.val);
+  if (val === ms.expectedNumber) {
+    cell.classList.add('correct'); cell.classList.remove('start');
+    playCorrect(); vibrate(30); addStar();
+    ms.currentStep++;
+    ms.expectedNumber++;
+    const dot = document.querySelectorAll('.maze-dot')[ms.currentStep-1];
+    if (dot) dot.classList.add('done');
+    const r = cell.getBoundingClientRect();
+    confetti(r.left + r.width/2, r.top + r.height/2);
+    if (ms.currentStep >= ms.pathLength) {
+      state.score++; state.correctTotal++;
+      speakDelayed('أحسنت! أكملت المتاهة', 200);
+      setTimeout(() => {
+        state.questionNum++;
+        if (state.questionNum >= state.totalQ) { showWin(); return; }
+        startMazeGame();
+      }, 1400);
+    } else {
+      const targetEl = document.querySelector('.maze-target .num');
+      if (targetEl) targetEl.textContent = ms.expectedNumber;
+      speakDelayed(`التالي: ${arWord(ms.expectedNumber)}`, 200);
+    }
+  } else {
+    cell.classList.add('wrong');
+    playWrong(); vibrate([30,30,30]);
+    state.firstAttempt = false;
+    setTimeout(() => cell.classList.remove('wrong'), 500);
+    speakDelayed('ليس هذا الرقم. حاول مرة أخرى', 200);
+  }
+}
+
+/* ==================== الذاكرة ==================== */
+function renderMemory() {
+  state.screen = 'game';
+  const d = getDiff();
+  const pairs = []; const used = new Set(); let tries = 0;
+  while (pairs.length < 6 && tries < 100) {
+    tries++;
+    const ops = d==='easy'?['+','-']:d==='medium'?['+','-','×']:['+','-','×','÷'];
+    const op = pick(ops);
+    let a, b, ans, eq;
+    if (op === '+') { a = randInt(1, d==='easy'?8:15); b = randInt(1, d==='easy'?8:15); ans = a+b; eq = `${a}+${b}`; }
+    else if (op === '-') { a = randInt(3, d==='easy'?10:20); b = randInt(1, a-1); ans = a-b; eq = `${a}−${b}`; }
+    else if (op === '×') { a = randInt(2, d==='hard'?9:6); b = randInt(2, d==='hard'?9:6); ans = a*b; eq = `${a}×${b}`; }
+    else { b = randInt(2, 5); const q = randInt(2, 6); a = b*q; ans = q; eq = `${a}÷${b}`; }
+    const key = eq + '=' + ans;
+    if (!used.has(ans) && !used.has(key)) { used.add(ans); used.add(key); pairs.push({ eq, ans }); }
+  }
+  const deck = [];
+  pairs.forEach((p, i) => {
+    deck.push({ id: i, content: p.eq });
+    deck.push({ id: i, content: String(p.ans) });
+  });
+  const shuffledDeck = shuffle(deck);
+  state.memoryState = { deck: shuffledDeck, flipped: [], matched: 0, lock: false, moves: 0 };
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="game-topbar"><div class="score-text">🧠 <span id="mem-score">0</span>/6</div></div>
+      <div class="question-area" style="justify-content:flex-start;padding-top:10px">
+        <p class="question-text">طابق العمليات مع نتائجها</p>
+        <div class="memory-grid" id="memory-grid">${shuffledDeck.map((c, i) => `<button class="memory-card" data-idx="${i}"></button>`).join('')}</div>
+      </div>
+    </div>`;
+  bindHeader(true, () => renderCategory('challenge'));
+  document.querySelectorAll('.memory-card').forEach(card => card.addEventListener('click', () => handleMemoryFlip(card)));
+  speakDelayed('اقلِب البطاقات وطابق العملية مع نتيجتها', 400);
+}
+function handleMemoryFlip(card) {
+  const st = state.memoryState;
+  if (st.lock) return;
+  if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+  const idx = parseInt(card.dataset.idx);
+  const c = st.deck[idx];
+  card.classList.add('flipped');
+  card.textContent = c.content;
+  st.flipped.push(idx);
+  initAudio(); playClick();
+  if (c.content.match(/[+\-−×÷]/)) {
+    const m = c.content.match(/(\d+)\s*([+−×÷])\s*(\d+)/);
+    if (m) {
+      const opWord = m[2] === '+' ? 'زائد' : m[2] === '−' ? 'ناقص' : m[2] === '×' ? 'ضرب' : 'على';
+      speakDelayed(`${arWord(parseInt(m[1]))} ${opWord} ${arWord(parseInt(m[3]))}`, 150);
+    }
+  } else {
+    const num = parseInt(c.content);
+    if (!isNaN(num)) speakDelayed(arWord(num), 150);
+  }
+  if (st.flipped.length === 2) {
+    st.lock = true; st.moves++;
+    const [i1, i2] = st.flipped;
+    const c1 = st.deck[i1], c2 = st.deck[i2];
+    const card1 = document.querySelector(`[data-idx="${i1}"]`);
+    const card2 = document.querySelector(`[data-idx="${i2}"]`);
+    if (c1.id === c2.id) {
+      setTimeout(() => {
+        card1.classList.add('matched'); card2.classList.add('matched');
+        playCorrect(); vibrate(50); addStar();
+        st.matched++;
+        const s = document.getElementById('mem-score');
+        if (s) s.textContent = st.matched;
+        const r = card1.getBoundingClientRect();
+        confetti(r.left+r.width/2, r.top+r.height/2);
+        speakDelayed('مطابقة صحيحة!', 200);
+        st.flipped = []; st.lock = false;
+        if (st.matched === 6) setTimeout(() => showMemoryWin(st.moves), 800);
+      }, 500);
+    } else {
+      setTimeout(() => {
+        card1.classList.remove('flipped'); card1.textContent = '';
+        card2.classList.remove('flipped'); card2.textContent = '';
+        playWrong(); st.flipped = []; st.lock = false;
+      }, 900);
+    }
+  }
+}
+function showMemoryWin(moves) {
+  playWin(); state.gamesPlayed++; saveStats();
+  for (let i=0;i<4;i++) setTimeout(() => confetti(randInt(50,window.innerWidth-50), randInt(100,window.innerHeight-200)), i*200);
+  speakDelayed('رائع! أكملت اللعبة بنجاح', 200);
+  const overlay = document.createElement('div');
+  overlay.className = 'win-overlay';
+  overlay.innerHTML = `
+    <div class="win-card">
+      <div class="win-emoji">🎉</div>
+      <div class="win-title">رائع جداً!</div>
+      <div class="win-subtitle">أنهيت اللعبة بـ ${moves} محاولة</div>
+      <div class="win-stars">⭐⭐⭐</div>
+      <div style="margin-top:16px">
+        <button class="win-btn" id="again">العب مجدداً</button>
+        <button class="win-btn secondary" id="home">القائمة</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#again').addEventListener('click', () => { overlay.remove(); startGame('mathMemory'); });
+  overlay.querySelector('#home').addEventListener('click', () => { overlay.remove(); renderCategory('challenge'); });
+}
+
+/* ==================== التحدي السريع ==================== */
+function startQuickChallenge() {
+  state.screen = 'game';
+  state.quickState = { timeLeft: 60, score: 0, timer: null, running: true };
+  state.questionNum = 0; state.score = 0; state.totalQ = 999;
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="game-topbar">
+        <div class="score-text">⭐ <span id="qc-score">0</span></div>
+        <div class="timer-display" id="qc-timer">60</div>
+      </div>
+      <div class="question-area" id="question-area"></div>
+    </div>`;
+  bindHeader(true, () => { clearInterval(state.quickState.timer); renderCategory('challenge'); });
+  speakDelayed('لديك ستون ثانية. أجب على أكبر عدد من الأسئلة', 400);
+  state.quickState.timer = setInterval(() => {
+    if (!state.quickState.running) return;
+    state.quickState.timeLeft--;
+    const el = document.getElementById('qc-timer');
+    if (el) {
+      el.textContent = state.quickState.timeLeft;
+      if (state.quickState.timeLeft <= 10) el.classList.add('urgent');
+    }
+    if (state.quickState.timeLeft <= 0) {
+      clearInterval(state.quickState.timer);
+      state.quickState.running = false;
+      showQuickWin();
+    }
+  }, 1000);
+  nextQuickQuestion();
+}
+function nextQuickQuestion() {
+  if (!state.quickState.running) return;
+  const d = getDiff();
+  const ops = d==='easy'?['+','-']:d==='medium'?['+','-','×']:['+','-','×','÷'];
+  const op = pick(ops);
+  let a, b, ans;
+  if (op === '+') { a = randInt(1, d==='easy'?10:20); b = randInt(1, d==='easy'?10:20); ans = a+b; }
+  else if (op === '-') { a = randInt(3, d==='easy'?10:20); b = randInt(1, a-1); ans = a-b; }
+  else if (op === '×') { a = randInt(2, 6); b = randInt(2, 6); ans = a*b; }
+  else { b = randInt(2, 5); const q = randInt(2, 6); a = b*q; ans = q; }
+  const wrongs = uniqueOptions(ans, () => Math.max(0, ans + randInt(-5, 8)));
+  const opts = shuffle([ans, ...wrongs.filter(x=>x!==ans).slice(0,3)]);
+  const area = document.getElementById('question-area');
+  if (!area) return;
+  area.innerHTML = `
+    <div class="equation-display" style="font-size:42px">${a} ${op} ${b} = ?</div>
+    <div class="options-grid">${opts.map(v => `<button class="option-btn" data-qc="${v}">${v}</button>`).join('')}</div>`;
+  const opWord = op === '+' ? 'زائد' : op === '-' ? 'ناقص' : op === '×' ? 'ضرب' : 'على';
+  speakDelayed(`${arWord(a)} ${opWord} ${arWord(b)}. كم يساوي؟`, 200);
+  area.querySelectorAll('[data-qc]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!state.quickState.running) return;
+      const val = parseInt(btn.dataset.qc);
+      if (val === ans) {
+        btn.classList.add('correct');
+        playCorrect(); vibrate(30);
+        state.quickState.score++; state.score++; state.correctTotal++;
+        addStar();
+        const s = document.getElementById('qc-score');
+        if (s) s.textContent = state.quickState.score;
+        const r = btn.getBoundingClientRect();
+        confetti(r.left+r.width/2, r.top+r.height/2);
+        setTimeout(() => nextQuickQuestion(), 400);
+      } else {
+        btn.classList.add('wrong');
+        playWrong(); vibrate([30,30,30]);
+        setTimeout(() => btn.classList.remove('wrong'), 400);
+      }
+    });
+  });
+}
+function showQuickWin() {
+  playWin(); state.gamesPlayed++; saveStats();
+  const sc = state.quickState.score;
+  const starRating = sc >= 20 ? 3 : sc >= 10 ? 2 : 1;
+  const starsHtml = '⭐'.repeat(starRating) + '☆'.repeat(3 - starRating);
+  for (let i=0;i<5;i++) setTimeout(() => confetti(randInt(50,window.innerWidth-50), randInt(100,window.innerHeight-200)), i*150);
+  speakDelayed(`انتهى الوقت! نتيجتك ${sc} إجابة صحيحة`, 200);
+  const overlay = document.createElement('div');
+  overlay.className = 'win-overlay';
+  overlay.innerHTML = `
+    <div class="win-card">
+      <div class="win-emoji">⚡</div>
+      <div class="win-title">انتهى التحدي!</div>
+      <div class="win-subtitle">نتيجتك: <strong>${sc}</strong> إجابة صحيحة</div>
+      <div class="win-stars">${starsHtml}</div>
+      <div style="margin-top:16px">
+        <button class="win-btn" id="again">تحدٍّ جديد</button>
+        <button class="win-btn secondary" id="home">القائمة</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#again').addEventListener('click', () => { overlay.remove(); startGame('quickChallenge'); });
+  overlay.querySelector('#home').addEventListener('click', () => { overlay.remove(); renderCategory('challenge'); });
+}
+
+/* ==================== ابحث عن الرقم ==================== */
+function startNumberSearch() {
+  state.screen = 'game';
+  state.numberSearch = { target: randInt(1, 9), found: 0, totalToFind: 3, grid: [], round: 0, rounds: 5 };
+  generateNumberSearchGrid();
+  renderNumberSearch();
+}
+function generateNumberSearchGrid() {
+  const ns = state.numberSearch;
+  const size = 20;
+  const grid = [];
+  for (let i = 0; i < size; i++) grid.push(randInt(1, 9));
+  ns.totalToFind = randInt(2, 4);
+  const positions = shuffle([...Array(size).keys()]).slice(0, ns.totalToFind);
+  positions.forEach(p => grid[p] = ns.target);
+  ns.grid = grid;
+  ns.found = 0;
+}
+function renderNumberSearch() {
+  const ns = state.numberSearch;
+  app.innerHTML = `
+    ${renderHeader(true)}
+    <div class="screen">
+      <div class="game-topbar">
+        <div class="score-text">🔍 <span id="ns-found">0</span>/${ns.totalToFind}</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${(ns.round/ns.rounds)*100}%"></div></div>
+      </div>
+      <div class="question-area" style="justify-content:flex-start;padding-top:10px">
+        <div class="ns-target"><span class="question-text">ابحث عن:</span><span class="num">${ns.target}</span></div>
+        <div class="number-search-grid" id="ns-grid">${ns.grid.map((n, i) => `<button class="ns-cell" data-idx="${i}" data-val="${n}">${n}</button>`).join('')}</div>
+      </div>
+    </div>`;
+  bindHeader(true, () => renderCategory('fun'));
+  document.querySelectorAll('.ns-cell').forEach(cell => cell.addEventListener('click', () => handleNumberSearchTap(cell)));
+  speakDelayed(`ابحث عن الرقم ${arWord(ns.target)}`, 400);
+}
+function handleNumberSearchTap(cell) {
+  const ns = state.numberSearch;
+  if (cell.classList.contains('found') || cell.classList.contains('miss')) return;
+  const val = parseInt(cell.dataset.val);
+  if (val === ns.target) {
+    cell.classList.add('found'); cell.textContent = '✓';
+    playCorrect(); vibrate(30); addStar();
+    ns.found++;
+    const fe = document.getElementById('ns-found');
+    if (fe) fe.textContent = ns.found;
+    const r = cell.getBoundingClientRect();
+    confetti(r.left+r.width/2, r.top+r.height/2);
+    speakDelayed('أحسنت!', 150);
+    if (ns.found >= ns.totalToFind) {
+      setTimeout(() => {
+        ns.round++;
+        if (ns.round >= ns.rounds) { showNumberSearchWin(); return; }
+        ns.target = randInt(1, 9);
+        generateNumberSearchGrid();
+        renderNumberSearch();
+      }, 1000);
+    }
+  } else {
+    cell.classList.add('miss'); cell.textContent = '✗';
+    playWrong(); vibrate(30);
+    speakDelayed('حاول مرة أخرى', 150);
+    setTimeout(() => { cell.classList.remove('miss'); cell.textContent = val; }, 700);
+  }
+}
+function showNumberSearchWin() {
+  playWin(); state.gamesPlayed++; saveStats();
+  for (let i=0;i<5;i++) setTimeout(() => confetti(randInt(50,window.innerWidth-50), randInt(100,window.innerHeight-200)), i*150);
+  speakDelayed('رائع! أنهيت جميع الجولات', 200);
+  const overlay = document.createElement('div');
+  overlay.className = 'win-overlay';
+  overlay.innerHTML = `
+    <div class="win-card">
+      <div class="win-emoji">🎯</div>
+      <div class="win-title">أنت رائع!</div>
+      <div class="win-subtitle">أكملت ${state.numberSearch.rounds} جولات بنجاح</div>
+      <div class="win-stars">⭐⭐⭐</div>
+      <div style="margin-top:16px">
+        <button class="win-btn" id="again">العب مجدداً</button>
+        <button class="win-btn secondary" id="home">القائمة</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#again').addEventListener('click', () => { overlay.remove(); startGame('numberSearch'); });
+  overlay.querySelector('#home').addEventListener('click', () => { overlay.remove(); renderCategory('fun'); });
+}
+
+/* ==================== الفوز العام ==================== */
+function showWin() {
+  playWin(); state.gamesPlayed++; saveStats();
+  const ratio = state.score / state.totalQ;
+  const starRating = ratio >= 0.9 ? 3 : ratio >= 0.6 ? 2 : 1;
+  const starsHtml = '⭐'.repeat(starRating) + '☆'.repeat(3 - starRating);
+  const msg = ratio >= 0.9 ? 'أنت عبقري! 🏆' : ratio >= 0.6 ? 'رائع جداً! 🎉' : 'أحسنت! 👏';
+  const bonus = starRating;
+  state.stars += bonus; saveStars();
+  for (let i=0;i<5;i++) setTimeout(() => confetti(randInt(50,window.innerWidth-50), randInt(100,window.innerHeight-300)), i*180);
+  speakDelayed(msg, 300);
+  const overlay = document.createElement('div');
+  overlay.className = 'win-overlay';
+  overlay.innerHTML = `
+    <div class="win-card">
+      <div class="win-emoji">🏆</div>
+      <div class="win-title">${msg}</div>
+      <div class="win-subtitle">${state.score} من ${state.totalQ} صحيحة</div>
+      <div class="win-stars">${starsHtml}</div>
+      <div class="win-subtitle" style="color:#764ba2;font-weight:bold">+${bonus} ⭐ نجمة</div>
+      <div style="margin-top:16px">
+        <button class="win-btn" id="again">العب مجدداً</button>
+        <button class="win-btn secondary" id="home">القائمة</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#again').addEventListener('click', () => { overlay.remove(); startGame(state.gameId); });
+  overlay.querySelector('#home').addEventListener('click', () => { overlay.remove(); renderCategory(state.categoryId); });
+}
+
+/* ==================== بدء التطبيق ==================== */
+function init() {
+  document.addEventListener('touchstart', () => initAudio(), { passive: true });
+  renderHome();
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+</script>
+</body>
+</html>

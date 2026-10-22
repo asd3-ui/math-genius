@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4facfe"/>
+      <stop offset="50%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#a18cd1"/>
+    </linearGradient>
+    <linearGradient id="numGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd93d"/>
+      <stop offset="100%" stop-color="#ff8c42"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- الخلفية الدائرية -->
+  <rect width="512" height="512" rx="120" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="210" fill="url(#halo)"/>
+
+  <!-- الرقم 5 الكبير -->
+  <text x="256" y="360" text-anchor="middle"
+        font-family="'Arial Black', Arial, sans-serif"
+        font-size="320" font-weight="900"
+        fill="url(#numGrad)" stroke="#ffffff" stroke-width="12" stroke-linejoin="round">5</text>
+
+  <!-- العيون -->
+  <circle cx="205" cy="225" r="18" fill="#2c3e50"/>
+  <circle cx="312" cy="225" r="18" fill="#2c3e50"/>
+  <circle cx="211" cy="218" r="6" fill="#ffffff"/>
+  <circle cx="318" cy="218" r="6" fill="#ffffff"/>
+
+  <!-- الابتسامة -->
+  <path d="M 200 295 Q 256 345 315 295" stroke="#2c3e50" stroke-width="11"
+        fill="none" stroke-linecap="round"/>
+
+  <!-- رمز + -->
+  <g>
+    <circle cx="88" cy="95" r="44" fill="#ff6b6b" stroke="#ffffff" stroke-width="5"/>
+    <text x="88" y="118" text-anchor="middle" font-family="Arial" font-size="58"
+          font-weight="900" fill="#ffffff">+</text>
+  </g>
+
+  <!-- رمز × -->
+  <g>
+    <circle cx="424" cy="95" r="44" fill="#4ecdc4" stroke="#ffffff" stroke-width="5"/>
+    <text x="424" y="118" text-anchor="middle" font-family="Arial" font-size="58"
+          font-weight="900" fill="#ffffff">×</text>
+  </g>
+
+  <!-- رمز ÷ -->
+  <g>
+    <circle cx="88" cy="425" r="44" fill="#feca57" stroke="#ffffff" stroke-width="5"/>
+    <text x="88" y="447" text-anchor="middle" font-family="Arial" font-size="58"
+          font-weight="900" fill="#2c3e50">÷</text>
+  </g>
+
+  <!-- رمز = -->
+  <g>
+    <circle cx="424" cy="425" r="44" fill="#a29bfe" stroke="#ffffff" stroke-width="5"/>
+    <text x="424" y="445" text-anchor="middle" font-family="Arial" font-size="54"
+          font-weight="900" fill="#ffffff">=</text>
+  </g>
+
+  <!-- نقاط زخرفية -->
+  <circle cx="130" cy="256" r="7" fill="#ffffff" opacity="0.9"/>
+  <circle cx="382" cy="256" r="7" fill="#ffffff" opacity="0.9"/>
+  <circle cx="256" cy="72" r="8" fill="#ffffff" opacity="0.85"/>
+</svg>
