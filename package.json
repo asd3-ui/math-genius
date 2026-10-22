@@ -4,13 +4,16 @@
   "private": true,
   "description": "Android wrapper for the existing Math Genius educational app",
   "scripts": {
-    "build:web": "rm -rf www && mkdir -p www && cp index.html manifest.json sw.js icon.svg icon-192.png icon-512.png www/"
+    "build:web": "rm -rf www && mkdir -p www && cp index.html manifest.json sw.js icon.svg icon-192.png icon-512.png www/",
+    "build:tts": "esbuild tts-bridge.js --bundle --format=iife --outfile=www/tts-bridge.js"
   },
   "dependencies": {
     "@capacitor/android": "6.2.1",
-    "@capacitor/core": "6.2.1"
+    "@capacitor/core": "6.2.1",
+    "@capacitor-community/text-to-speech": "4.0.2"
   },
   "devDependencies": {
-    "@capacitor/cli": "6.2.1"
+    "@capacitor/cli": "6.2.1",
+    "esbuild": "^0.25.0"
   }
 }
