@@ -38,6 +38,9 @@ jobs:
       - name: Prepare unchanged web app
         run: npm run build:web
 
+      - name: Bundle native text-to-speech bridge
+        run: npm run build:tts
+
       - name: Generate Android project
         run: npx cap add android
 
