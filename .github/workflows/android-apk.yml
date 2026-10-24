@@ -41,6 +41,9 @@ jobs:
       - name: Bundle native text-to-speech bridge
         run: npm run build:tts
 
+      - name: Bundle Three.js race environment
+        run: npm run build:environment
+
       - name: Generate Android project
         run: npx cap add android
 
