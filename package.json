@@ -6,12 +6,14 @@
   "scripts": {
     "build:web": "rm -rf www && mkdir -p www && cp index.html manifest.json sw.js icon.svg icon-192.png icon-512.png www/",
     "build:tts": "esbuild tts-bridge.js --bundle --format=iife --outfile=www/tts-bridge.js",
-    "build:android-icons": "mkdir -p assets && cp icon-512.png assets/icon.png && npx capacitor-assets generate --android"
+    "build:android-icons": "mkdir -p assets && cp icon-512.png assets/icon.png && npx capacitor-assets generate --android",
+    "build:environment": "esbuild race-environment.js --bundle --format=iife --target=es2020 --outfile=www/race-environment.js"
   },
   "dependencies": {
     "@capacitor/android": "6.2.1",
     "@capacitor/core": "6.2.1",
-    "@capacitor-community/text-to-speech": "4.0.2"
+    "@capacitor-community/text-to-speech": "4.0.2",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@capacitor/cli": "6.2.1",
