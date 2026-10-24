@@ -8,6 +8,7 @@
 <title>🧮 عبقري الرياضيات</title>
 <link rel="manifest" href="manifest.json">
 <script src="tts-bridge.js"></script>
+<script defer src="race-environment.js"></script>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
@@ -177,9 +178,16 @@ body{background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#f093fb 100%);back
   .option-btn{font-size:26px}
   .order-num-btn{font-size:20px;padding:12px 4px}
 }
+
+/* Imported Math Run 3D visual environment only; game controls and logic remain unchanged. */
+#race-environment{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.72;background:linear-gradient(135deg,rgba(20,12,58,.2),rgba(18,70,130,.18))}
+#race-environment canvas{display:block;width:100%;height:100%;pointer-events:none}
+#app{position:relative;z-index:1;background:transparent}
+@media (prefers-reduced-motion: reduce){#race-environment{opacity:.42}}
 </style>
 </head>
 <body>
+<div id="race-environment" aria-hidden="true"></div>
 <div id="app"></div>
 <script>
 'use strict';
