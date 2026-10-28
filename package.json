@@ -4,7 +4,7 @@
   "private": true,
   "description": "Android wrapper for the existing Math Genius educational app",
   "scripts": {
-    "build:web": "rm -rf www && mkdir -p www && cp index.html manifest.json sw.js icon.svg icon-192.png icon-512.png www/ && npm run build:environment",
+    "build:web": "rm -rf www && mkdir -p www && cp index.html manifest.json sw.js icon.svg icon-192.png icon-512.png math-genius-plus.js www/ && npm run build:environment",
     "build:tts": "esbuild tts-bridge.js --bundle --format=iife --outfile=www/tts-bridge.js",
     "build:android-icons": "mkdir -p assets && cp icon-512.png assets/icon.png && npx capacitor-assets generate --android",
     "build:environment": "esbuild race-environment.js --bundle --format=iife --target=es2020 --outfile=www/race-environment.js"
