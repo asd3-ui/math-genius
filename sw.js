@@ -1,8 +1,9 @@
-const CACHE = 'math-genius-v7';
+const CACHE = 'math-genius-v8';
 const ASSETS = [
   './',
   './index.html',
   './race-environment.js',
+  './math-genius-plus.js',
   './manifest.json',
   './icon.svg',
   './icon-192.png',
